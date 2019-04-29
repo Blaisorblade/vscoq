@@ -101,7 +101,7 @@ class IFrameDocumentProvider implements vscode.TextDocumentContentProvider {
 <iframe src="${coqViewToFileUri(uri)}" seamless style="position:absolute;top:0px;left:0px;right:0px;bottom:0px;border:none;margin:0px;padding:0px;width:100%;height:100%" />
 </body>`;
   }
-  
+
   public get onDidChange(): vscode.Event<vscode.Uri> {
     return this.onDidChangeEmitter.event;
   }
@@ -119,21 +119,21 @@ export class HtmlCoqView implements view.CoqView {
   private httpServer : http.Server;
   // private connection : Promise<WebSocket>;
   private serverReady : Promise<void>;
-  private currentState : proto.CommandResult = {type: 'not-running', reason: 'not-started'}; 
+  private currentState : proto.CommandResult = {type: 'not-running', reason: 'not-started'};
   public onresize: (columns: number) => Thenable<void> = null;
   private coqViewUri : vscode.Uri;
-  private currentSettings : SettingsState = {}; 
-  
+  private currentSettings : SettingsState = {};
+
   constructor(uri: vscode.Uri, context: vscode.ExtensionContext) {
-    if(coqViewProvider===null) {    
+    if(coqViewProvider===null) {
       coqViewProvider = new IFrameDocumentProvider();
       var registration = vscode.workspace.registerTextDocumentContentProvider('coq-view', coqViewProvider);
       context.subscriptions.push(registration);
       context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(() => this.updateSettings()))
     }
-    
+
     this.docUri = uri;
-    
+
     const httpServer = this.httpServer = http.createServer();
     this.serverReady = new Promise<void>((resolve, reject) =>
       httpServer.listen(0,'localhost',undefined,(e) => {
@@ -142,7 +142,7 @@ export class HtmlCoqView implements view.CoqView {
         else
           resolve();
       }));
-    
+
     this.server = new WebSocket.Server({server: httpServer});
     this.server.on('connection', (ws: WebSocket) => {
       ws.onmessage = (event) => this.handleClientMessage(event);
@@ -150,12 +150,12 @@ export class HtmlCoqView implements view.CoqView {
       this.sendMessage({command: 'goal-update', goal: this.currentState}, [ws]);
     })
   }
-  
+
   private handleClientResize(event: ResizeEvent) {
     if(this.onresize)
       this.onresize(event.columns);
   }
-  
+
   private handleClientMessage(event: {data: any; type: string; target: WebSocket}) {
     const message = <ControllerEvent>JSON.parse(event.data);
     switch(message.eventName) {
@@ -164,11 +164,11 @@ export class HtmlCoqView implements view.CoqView {
         return;
       case 'focus':
         docs.getProject().setActiveDoc(this.docUri);
-        return;        
+        return;
     }
   }
 
- 
+
   private async createBuffer() : Promise<void> {
     try {
       await this.serverReady;
@@ -179,7 +179,7 @@ export class HtmlCoqView implements view.CoqView {
       console.log("Goals: " + decodeURIComponent(this.coqViewUri.with({scheme: 'file'}).toString()));
     } catch(err) {
       vscode.window.showErrorMessage(err.toString());
-    }    
+    }
   }
 
   public getUri() : vscode.Uri {
@@ -224,12 +224,12 @@ export class HtmlCoqView implements view.CoqView {
       } catch(error) {}
     }
   }
-  
+
   public async update(state: proto.CommandResult, clients = this.server.clients) {
     this.currentState = state;
     this.sendMessage({command: 'goal-update', goal: state}, clients);
   }
-  
+
 
   private updateSettings(clients = this.server.clients) {
     this.currentSettings.fontFamily = vscode.workspace.getConfiguration("editor").get("fontFamily") as string;

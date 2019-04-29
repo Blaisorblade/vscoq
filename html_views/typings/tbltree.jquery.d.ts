@@ -8,7 +8,7 @@ interface TblTreeSettings {
   levelPicker?: string,               // ''
   expanderTemplate?: string,         // '<span class="tbltree-expander"></span>'
   levelPickerTemplate?: string,       // '<div class="tbltree-level-pickers">\n<span id="0" class="tbltree-level-item">[1]</span>&nbsp;\n<span id="1" class="tbltree-level-item">[2]</span>&nbsp;\n<span id="2" class="tbltree-level-item">[3]</span>&nbsp;\n<span id="3" class="tbltree-level-item">[4]</span>&nbsp;\n</div>'
-  indentTemplate?: string,            // '<span class="tbltree-indent"></span>' 
+  indentTemplate?: string,            // '<span class="tbltree-indent"></span>'
   expanderExpandedClass?: string,     // 'tbltree-expander-expanded'
   expanderCollapsedClass?: string,    // 'tbltree-expander-collapsed'
   change?: ()=>any,
@@ -18,7 +18,7 @@ interface TblTreeSettings {
 }
 
 
-interface JQuery { 
+interface JQuery {
   tbltree() : JQuery;
   tbltree(settings: TblTreeSettings);
   tbltree(methodName:'expand', id: JQuery|string, user?: number): JQuery;

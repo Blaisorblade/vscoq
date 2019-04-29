@@ -37,7 +37,7 @@ export class SimpleCoqView implements view.CoqView {
         state.goals.forEach((g,i) => {
           out = out + `----------------------(${i+1}/${state.goals.length})\n${g.goal}\n`;
         })
-        
+
       } else
         out = "There unfocused goals.";
     }

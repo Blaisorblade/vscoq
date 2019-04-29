@@ -41,7 +41,7 @@ export var extensionContext : ExtensionContext;
 //     }).then(() => {
 //       editor.setDecorations(dec, [lineRange(1,12,16)]);
 //     });
-//   }  
+//   }
 // }
 
 export function activate(context: ExtensionContext) {
@@ -78,25 +78,25 @@ export function activate(context: ExtensionContext) {
   regTCmd('query.check', check);
   regTCmd('query.locate', locate);
   regTCmd('query.search', search);
-  regTCmd('query.searchAbout', searchAbout); 
-  regTCmd('query.print', print); 
+  regTCmd('query.searchAbout', searchAbout);
+  regTCmd('query.print', print);
   regTCmd('query.prompt.check', queryCheck);
   regTCmd('query.prompt.locate', queryLocate);
   regTCmd('query.prompt.search', querySearch);
-  regTCmd('query.prompt.searchAbout', querySearchAbout); 
+  regTCmd('query.prompt.searchAbout', querySearchAbout);
   regTCmd('query.prompt.print', queryPrint);
-  regTCmd('proofView.viewStateAt', viewProofStateAt); 
-  regTCmd('proofView.open', viewCurrentProofState); 
+  regTCmd('proofView.viewStateAt', viewProofStateAt);
+  regTCmd('proofView.open', viewCurrentProofState);
   regTCmd('proofView.openExternal', viewProofStateExternal);
   regCmd('proofView.customizeProofViewStyle', customizeProofViewStyle);
   regProjectCmd('ltacProf.getResults', project.ltacProfGetResults);
-  regCmd('display.toggle.implicitArguments', () => project.setDisplayOption(proto.DisplayOption.ImplicitArguments, proto.SetDisplayOption.Toggle)); 
-  regCmd('display.toggle.coercions', () => project.setDisplayOption(proto.DisplayOption.Coercions, proto.SetDisplayOption.Toggle)); 
-  regCmd('display.toggle.rawMatchingExpressions', () => project.setDisplayOption(proto.DisplayOption.RawMatchingExpressions, proto.SetDisplayOption.Toggle)); 
-  regCmd('display.toggle.notations', () => project.setDisplayOption(proto.DisplayOption.Notations, proto.SetDisplayOption.Toggle)); 
-  regCmd('display.toggle.allBasicLowLevelContents', () => project.setDisplayOption(proto.DisplayOption.AllBasicLowLevelContents, proto.SetDisplayOption.Toggle)); 
-  regCmd('display.toggle.existentialVariableInstances', () => project.setDisplayOption(proto.DisplayOption.ExistentialVariableInstances, proto.SetDisplayOption.Toggle)); 
-  regCmd('display.toggle.universeLevels', () => project.setDisplayOption(proto.DisplayOption.UniverseLevels, proto.SetDisplayOption.Toggle)); 
+  regCmd('display.toggle.implicitArguments', () => project.setDisplayOption(proto.DisplayOption.ImplicitArguments, proto.SetDisplayOption.Toggle));
+  regCmd('display.toggle.coercions', () => project.setDisplayOption(proto.DisplayOption.Coercions, proto.SetDisplayOption.Toggle));
+  regCmd('display.toggle.rawMatchingExpressions', () => project.setDisplayOption(proto.DisplayOption.RawMatchingExpressions, proto.SetDisplayOption.Toggle));
+  regCmd('display.toggle.notations', () => project.setDisplayOption(proto.DisplayOption.Notations, proto.SetDisplayOption.Toggle));
+  regCmd('display.toggle.allBasicLowLevelContents', () => project.setDisplayOption(proto.DisplayOption.AllBasicLowLevelContents, proto.SetDisplayOption.Toggle));
+  regCmd('display.toggle.existentialVariableInstances', () => project.setDisplayOption(proto.DisplayOption.ExistentialVariableInstances, proto.SetDisplayOption.Toggle));
+  regCmd('display.toggle.universeLevels', () => project.setDisplayOption(proto.DisplayOption.UniverseLevels, proto.SetDisplayOption.Toggle));
   regCmd('display.toggle.allLowLevelContents', () => project.setDisplayOption(proto.DisplayOption.AllLowLevelContents, proto.SetDisplayOption.Toggle));
   regCmd('display.toggle', () => project.setDisplayOption());
 

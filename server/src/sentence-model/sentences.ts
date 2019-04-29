@@ -91,22 +91,22 @@
 //   }
 //   public toString() : string {
 //     return `{${this.stateId}, [${this.textBegin},${this.textEnd})}`;
-//   } 
+//   }
 // }
 
 // export class Sentences {
 //   private sentences = new Map<number,SentenceLink>();
 //   private sentencesByPosition : SentenceLink[] = [];
-  
-//   // A stack of the current edit-points; the top is the current tip, and when it is done, it will be popped and the next tip will be at top 
+
+//   // A stack of the current edit-points; the top is the current tip, and when it is done, it will be popped and the next tip will be at top
 //   // assume:
 //   //  - tips are always in sentences (if sentences is not empty)
 //   //  - tips have no children
 //   private tip : SentenceLink = null;
-  
+
 //   constructor() {
 //   }
-  
+
 //   public getTip() : Sentence {
 //     if(!this.tip)
 //       throw "Coq not initialized";
@@ -116,11 +116,11 @@
 //   public setTip(newTipId : number) : void {
 //     this.tip = this.sentences.get(newTipId);
 //   }
-  
+
 //   public hasTip() : boolean {
 //     return this.tip != null;
 //   }
-  
+
 //   private diffHypotheses(oldHyps: Hypothesis[], newHyps: Hypothesis[]) {
 //     newHyps.forEach((hyp,idxHyp) => {
 //       var oldHypIdx = idxHyp;
@@ -129,7 +129,7 @@
 //         oldHypIdx = oldHyps.findIndex((h) => h.identifier === hyp.identifier)
 //         oldHyp = oldHyps[oldHypIdx];
 //       }
-        
+
 //       if(oldHyp === undefined)
 //         hyp.diff = HypothesisDifference.New;
 //       else if(oldHyp.expression !== hyp.expression) {
@@ -141,7 +141,7 @@
 //           else if(d.removed)
 //             return {text: d.value, change: TextDifference.Removed};
 //           else
-//             return {text: d.value, change: TextDifference.None};          
+//             return {text: d.value, change: TextDifference.None};
 //         });
 //       } else
 //         hyp.diff = HypothesisDifference.None
@@ -163,14 +163,14 @@
 //             else if(d.removed)
 //               return {text: d.value, change: TextDifference.Removed};
 //             else
-//               return {text: d.value, change: TextDifference.None};          
+//               return {text: d.value, change: TextDifference.None};
 //           });
 //         }
 //       }
 //     })
 
 //   }
-  
+
 //   private diffGoalState(sent : SentenceLink) {
 //     if(sent.goalState.error)
 //       return;
@@ -184,7 +184,7 @@
 //     // this.diffGoals(oldState.shelvedGoals, newState.shelvedGoals);
 //     // this.diffGoals(oldState.abandonedGoals, newState.abandonedGoals);
 //   }
-  
+
 //   public setGoalState(stateId: number, goalState: CoqTopGoalResult) {
 //     const sent = this.sentences.get(stateId);
 //     if(!sent || sent === undefined)
@@ -196,7 +196,7 @@
 //   private removeDescendants(sent: SentenceLink,sentLast?: Sentence) {
 //     for(let child of sent.descendents()) {
 //       this.sentences.delete(child.stateId);
-      
+
 //       // TODO: this is probably not efficient; we may be able to simoplify things once we understand exactly when a sentence may have multiple children
 //       this.sentencesByPosition.splice(this.sentencesByPosition.indexOf(child),1);
 
@@ -204,7 +204,7 @@
 //         return;
 //     }
 //   }
-  
+
 //   public toString() {
 //     return this.sentencesByPosition.toString();
 //   }
@@ -216,32 +216,32 @@
 //     const sentLast = this.sentences.get(sentenceLast.stateId);
 //     if(sentTo === undefined || sentLast===undefined)
 //       throw "Sentence is an orphan";
-      
+
 //     this.removeDescendants(sentTo, sentLast);
-    
-//     // remove any tips that have been undone and push the new tip    
+
+//     // remove any tips that have been undone and push the new tip
 //     this.tip = sentTo;
 
 //     sentTo.rewindToHere();
 //     return sentenceTo;
 //   }
-  
+
 //   public rewindTo(sentence: Sentence) : Sentence {
 //     if(sentence === null)
 //       throw "Invalid sentence";
 //     const sent = this.sentences.get(sentence.stateId);
 //     if(sent === undefined)
 //       throw "Sentence is an orphan";
-      
+
 //     this.removeDescendants(sent);
-    
-//     // remove any tips that have been undone and push the new tip    
+
+//     // remove any tips that have been undone and push the new tip
 //     this.tip = sent;
 
 //     sent.rewindToHere();
 //     return sentence;
 //   }
-  
+
 //   public rewindOnceFrom(sentence : Sentence) : Sentence {
 //     if(sentence === null)
 //       throw "Invalid sentence";
@@ -255,7 +255,7 @@
 //     this.sentences.delete(sent.stateId);
 //     this.sentencesByPosition.splice(this.sentencesByPosition.indexOf(sent),1);
 
-//     // remove any tips that have been undone and push the new tip    
+//     // remove any tips that have been undone and push the new tip
 //     this.tip = sent.getParent();
 
 //     sent.getParent().rewindToHere();
@@ -298,7 +298,7 @@
 //     else
 //       return null;
 //   }
-  
+
 
 //   public addChild(parent: Sentence, stateId:number, textBegin:number, textEnd: number) : Sentence {
 //     if(!parent)
@@ -312,17 +312,17 @@
 //     const child = SentenceLink.createNext(p,stateId,textBegin,textEnd);
 
 //     this.tip = child;
-    
+
 //     this.sentences.set(stateId, child);
 
 //     // insert this child by position
-//     const insertIdx = this.positionalIndexAt(child.textBegin);    
+//     const insertIdx = this.positionalIndexAt(child.textBegin);
 //     // ASSUME: the child does not intersect with any preexisting sentence
 //     this.sentencesByPosition.splice(insertIdx+1,0,child);
 
 //     return child;
 //   }
-  
+
 //   public getPredecessor(sentence: Sentence) : Sentence {
 //     if(sentence === null)
 //       throw "Invalid sentence";
@@ -331,11 +331,11 @@
 //       throw "Invalid sentence";
 //     return sent.getParent();
 //   }
-  
+
 //   public get(stateId: number) : Sentence {
 //     return this.sentences.get(stateId);
 //   }
-  
+
 //   public reset(stateId: number) : void {
 //     this.sentences.clear();
 //     const root = SentenceLink.createRoot(stateId);
@@ -343,7 +343,7 @@
 //     this.sentencesByPosition = [root];
 //     this.tip = root;
 //   }
-  
+
 //   private *getSentenceByPositionIterator(beginIdx: number, endIdx: number) : Iterable<Sentence> {
 //     for(let idx = beginIdx; idx < endIdx; ++idx)
 //       yield this.sentencesByPosition[idx];
@@ -359,12 +359,12 @@
 //     const endIdx = this.positionalIndexAt(endPos,beginPos,undefined);
 //     return this.getSentenceByPositionIterator(beginIdx,endIdx);
 //   }
-  
+
 //   public getRangeAffected(beginPos: number, endPos: number) : {length:number,affected:Iterable<Sentence>} {
 //     let beginIdx = this.positionalIndexAt(beginPos);
 //     if(beginIdx >= this.sentencesByPosition.length)
 //       return {length: 0, affected: []};
-      
+
 //     let endIdx = this.positionalIndexAt(endPos,beginIdx);
 //     // endIdx includes the position, so take the next sentence
 //     ++endIdx;
@@ -377,7 +377,7 @@
 //       affected: this.getSentenceByPositionIterator(beginIdx,endIdx)
 //     };
 //   }
-  
+
 //   // Increases or decreases the number of characters in a sentence at position and adjusts all subsequent sentences
 //   public shiftCharacters(position: number, count: number) : boolean {
 //     if(count == 0)
@@ -393,15 +393,15 @@
 //       beginSent.textEnd += count;
 //     } else if(beginIdx < this.sentencesByPosition.length-1
 //       && -count > this.sentencesByPosition[beginIdx+1].textBegin-beginSent.textEnd) {
-//       return false; // cannot remove more characters than exist between sentences      
+//       return false; // cannot remove more characters than exist between sentences
 //     }
-    
+
 //     // shift subsequent sentences
 //     for (let idx = beginIdx+1; idx < this.sentencesByPosition.length; ++idx) {
 //       this.sentencesByPosition[idx].textBegin+= count;
 //       this.sentencesByPosition[idx].textEnd+= count;
 //     }
-    
+
 //     return true;
 //   }
 
@@ -418,17 +418,17 @@
 //     const sentIdx = this.positionalIndexPreceding(offset);
 //     if(sentIdx === -1)
 //       return null;
-//     return this.sentencesByPosition[sentIdx];    
+//     return this.sentencesByPosition[sentIdx];
 //   }
-// // 
+// //
 // //   public beginEditAt(offset: number) : Sentence {
 // //     // find the sentence that immediately precedes the offset
 // //     const sentIdx = this.positionalIndexPreceding(offset);
 // //     if(sentIdx === -1)
 // //       return null;
-// // 
-// //     return this.sentencesByPosition[sentIdx];    
-// //   }  
-// //   
-  
+// //
+// //     return this.sentencesByPosition[sentIdx];
+// //   }
+// //
+
 // }

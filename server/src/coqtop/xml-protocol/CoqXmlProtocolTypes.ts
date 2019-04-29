@@ -43,7 +43,7 @@ export class Option<T extends ProtocolType> extends ProtocolTypeBase {
   public isNone() {
     return this.value === undefined;
   }
-  
+
   public isSome() {
     return this.value !== undefined;
   }

@@ -342,7 +342,7 @@ export namespace Nodes {
     return value.$.val === 'good';
   }
 
- 
+
 }
 
 
@@ -376,7 +376,7 @@ function check(t:'status', r?: CoqStatus );
 function check(t:'value', r?: ValueReturn|FailValue );
 function check(tag:string, result:CoqValue) : CoqValue {
   return result;
-} 
+}
 
 function unreachable(x: never) : never { return x }
 
@@ -390,9 +390,9 @@ export abstract class Deserialize {
   private doDeserialize(value: Nodes.TypedNode) : CoqValue {
     switch(value.$name)
     {
-      case 'state_id':  
+      case 'state_id':
         return check(value.$name, +value.$.val);
-      case 'edit_id':  
+      case 'edit_id':
         return check(value.$name, +value.$.val);
       case 'int':
         return check(value.$name, +value.$children[0]);
@@ -402,7 +402,7 @@ export abstract class Deserialize {
         return check(value.$name, {});
       case 'pair':
         return check(value.$name, value.$children);
-      case 'list':  
+      case 'list':
         return check(value.$name, value.$children);
       case 'bool':
         if(typeof value.$.val === 'boolean')
@@ -429,7 +429,7 @@ export abstract class Deserialize {
         else if(Nodes.optValIsString(value))
           return check(value.$name, value.$children[0]);
         else
-          break 
+          break
       }
       case 'option_state': {
         return check(value.$name, {
@@ -460,7 +460,7 @@ export abstract class Deserialize {
         return check(value.$name, coqProto.MessageLevel[value.$.val]);
       case 'message':
         return check(value.$name, {
-          level: value.message_level, 
+          level: value.message_level,
           message: value.$children[1] || ""
         });
       case 'status':
@@ -566,7 +566,7 @@ export abstract class Deserialize {
         identity: value.$children[3],
         type: value.$children[4],
       }
-console.log("glob-ref: " + util.inspect(result));      
+console.log("glob-ref: " + util.inspect(result));
       return result;
     case 'globdef':
       result = {

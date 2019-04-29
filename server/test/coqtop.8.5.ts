@@ -59,7 +59,7 @@ describe("Coqtop 8.5", function() {
     autoUseWrapper: false,
     wrapper: "",
     args: [],
-    traceXmlProtocol: false,    
+    traceXmlProtocol: false,
   }
 
   let dummyConsole = {
@@ -116,7 +116,7 @@ describe("Coqtop 8.5", function() {
     function sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
     }
-    
+
     it("Add", async function() {
       let currentState = rootState;
       const result = await coq.coqAddCommand("Check nat.", 1, currentState, true);

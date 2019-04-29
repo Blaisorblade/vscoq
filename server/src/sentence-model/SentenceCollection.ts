@@ -9,13 +9,13 @@ import * as server from '../server'
 import * as util from 'util'
 import {QualId, ScopeFlags, SymbolInformation} from './Scopes'
 
-export type SentencesInvalidatedCallback = (invalidatedSentences: Sentence[]) => void; 
+export type SentencesInvalidatedCallback = (invalidatedSentences: Sentence[]) => void;
 
 
 export class SentenceCollection implements vscode.TextDocument {
   private sentences: Sentence[] = [];
   private sentencesInvalidatedCallbacks = new Set<SentencesInvalidatedCallback>();
-  
+
   public languageId: string = 'coq';
   public lineCount : number = 0;
   public uri: string;
@@ -135,8 +135,8 @@ export class SentenceCollection implements vscode.TextDocument {
     }}
   }
 
-  /** 
-   * @returns the index of the closest sentence containing or appearing before `pos`, or `-1` if no sentence is before or contains `pos`. 
+  /**
+   * @returns the index of the closest sentence containing or appearing before `pos`, or `-1` if no sentence is before or contains `pos`.
    */
   private getSentenceIndexBeforeOrAt(pos: Position) : number {
     let sentIdx = 0;
@@ -148,8 +148,8 @@ export class SentenceCollection implements vscode.TextDocument {
       return sentIdx-1;
   }
 
-  /** 
-   * @returns the index of the closest sentence containing or appearing after `pos`, or `this.sentences.length` if no sentence is after or contains `pos`. 
+  /**
+   * @returns the index of the closest sentence containing or appearing after `pos`, or `this.sentences.length` if no sentence is after or contains `pos`.
    */
   private getSentenceIndexAfterOrAt(pos: Position) : number {
     if(this.sentences.length === 0)
@@ -201,7 +201,7 @@ export class SentenceCollection implements vscode.TextDocument {
     } catch(err) {
       server.connection.console.warn("Error reparsing sentences: " + err.toString());
     }
-    
+
   }
 
   public *getErrors() : Iterable<vscode.Diagnostic> {
@@ -283,7 +283,7 @@ export class SentenceCollection implements vscode.TextDocument {
 
   /**
    * @param `pos` -- position in the text document
-   * @return the sentence containing `pos`, or `null` if no such sentence exists 
+   * @return the sentence containing `pos`, or `null` if no such sentence exists
    */
   public getSentenceAt(pos: Position) : Sentence|null {
     const idx = this.getSentenceIndexBeforeOrAt(pos);
@@ -370,8 +370,8 @@ export class SentenceCollection implements vscode.TextDocument {
             this.sentences[start].prev = this.sentences[start-1] || null;
           }
           this.sentences[start+reparsed.length-1].next = this.sentences[start+reparsed.length]||null;
-          if(start+reparsed.length < this.sentences.length)           
-            this.sentences[start+reparsed.length].prev = this.sentences[start+reparsed.length-1]||null;           
+          if(start+reparsed.length < this.sentences.length)
+            this.sentences[start+reparsed.length].prev = this.sentences[start+reparsed.length-1]||null;
           //
           removed.forEach((sent) => sent.dispose());
           return {removed: removed, added: reparsed, endOfSentences: false};

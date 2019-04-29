@@ -23,7 +23,7 @@ namespace coqtopw
 
     static Regex channelParser = new Regex("^(?<hostname>[^:].*):(?<port>[0-9]*)$");
     static Regex channelParser2 = new Regex("^(?<hostname>[^:].*):(?<portR>[0-9]*):(?<portW>[0-9]*)$");
-    
+
 
     static async Task<Stream> openChannelSocket(string channel) {
       try
@@ -204,7 +204,7 @@ namespace coqtopw
           var header = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<root>\n</root>";
           var headerBytes = System.Text.Encoding.UTF8.GetBytes(header);
           trace.Write(headerBytes, 0, headerBytes.Length);
-          trace.Position = header.IndexOf("\n</root>"); 
+          trace.Position = header.IndexOf("\n</root>");
         }
         catch (Exception)
         {
@@ -234,10 +234,10 @@ namespace coqtopw
         tasks.Add(editorControl.CopyToAsync(coqtopControl));
       }
 
-      await Task.WhenAny(tasks);        
+      await Task.WhenAny(tasks);
     }
 
-   
+
 
     // C:/Users/cj/Research/vscoq/coqtopw/bin/Debug/coqtopw.exe -coqtopbin C:/Coq8.5rc1/bin//coqtop -main-channel 127.0.0.1:7806 -control-channel 127.0.0.1:7809 -ideslave -async-proofs on
     static int Main(string[] args)

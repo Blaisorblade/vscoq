@@ -1,5 +1,5 @@
 'use strict';
-// 
+//
 // Note: This example test is leveraging the Mocha test framework.
 // Please refer to their documentation on https://mochajs.org/ for help.
 //
@@ -154,7 +154,7 @@ suite("Mutex", () => {
 //     await unlock1();
 //     assert(!m.isLocked());
 //   }));
-// 
+//
 //   test("cancelAll: three lockers", asyncTest (async () => {
 //     const m = new Mutex();
 //     const unlock1 = await m.lock();
@@ -178,5 +178,5 @@ suite("Mutex", () => {
 //     await unlock1();
 //     assert(!m.isLocked());
 //   }));
-  
+
 });

@@ -47,26 +47,26 @@ export class MDCoqView implements view.CoqView {
     this.docUri = uri;
     this.createBuffer();
   }
-  
+
   private async createBuffer() {
     try {
       this.filename = this.docUri.fsPath + ".view.md";
       fs.close(await createFile(this.filename));
-      
-      
+
+
       const focusedDoc = vscode.window.activeTextEditor ? vscode.window.activeTextEditor.document : null;
       this.outDoc = await vscode.workspace.openTextDocument(this.filename);
-      
-    
+
+
       // vscode.window.onDidChangeActiveTextEditor((editor) => {
       //   var a = editor.document;
       // });
-      
+
       this.editor = await vscode.window.showTextDocument(this.outDoc, vscode.ViewColumn.Two);
-      
+
       await vscode.commands.executeCommand('workbench.action.markdown.togglePreview');
       var x = vscode.window.activeTextEditor;
-      
+
       if(focusedDoc)
         vscode.window.showTextDocument(focusedDoc);
       // if(focusedEditor)
@@ -80,15 +80,15 @@ export class MDCoqView implements view.CoqView {
       // s.forEach((x) => )
     } catch(err) {
       vscode.window.showErrorMessage(err.toString());
-    }    
+    }
   }
-  
+
 //   private write(eb: vscode.TextEditorEdit, text: string) {
 //     eb.insert(this.currentPos, text);
 //     const delta = textUtil.positionAt(text, text.length);
 //     this.currentPos = this.currentPos.translate(delta.line, delta.character);
 //   }
-// 
+//
 //   private writeLine(eb: vscode.TextEditorEdit, text: string) {
 //     this.write(eb, text + '\n');
 //   }
@@ -98,12 +98,12 @@ export class MDCoqView implements view.CoqView {
     this.editor.hide();
     fs.unlink(this.filename);
   }
-  
+
 
   private displayError(state: proto.CommandResult) {
     // this.out.appendLine(state.error.message);
   }
-  
+
   private async setOutputText(text: string) {
     await writeFile(this.filename, text);
     await this.refreshView();
@@ -132,7 +132,7 @@ export class MDCoqView implements view.CoqView {
         state.goals.forEach((g,i) => {
           out = out + `<hr/>(${i+1}/${state.goals.length})<br/>${g.goal}<br/>`;
         })
-        
+
       } else
         out = "There unfocused goals.";
     }
@@ -146,7 +146,7 @@ export class MDCoqView implements view.CoqView {
     // const eb = await edit(this.editor);
     // eb.insert(new vscode.Position(0,0), "Hello World");
   }
-  
+
 
   private async refreshView() {
     const focusedDoc = vscode.window.activeTextEditor ? vscode.window.activeTextEditor.document : null;
@@ -155,7 +155,7 @@ export class MDCoqView implements view.CoqView {
     // await vscode.commands.executeCommand('workbench.action.markdown.togglePreview');
     await vscode.commands.executeCommand('workbench.action.markdown.togglePreview');
     if(focusedDoc)
-      vscode.window.showTextDocument(focusedDoc);    
+      vscode.window.showTextDocument(focusedDoc);
   }
 
   public async update(state: proto.CommandResult) {
@@ -168,7 +168,7 @@ export class MDCoqView implements view.CoqView {
         break;
     }
   }
-  
+
   public async show() {
     await vscode.window.showTextDocument(this.editor.document,vscode.ViewColumn.Two);
   }

@@ -54,7 +54,7 @@ class IFrameDocumentProvider implements vscode.TextDocumentContentProvider {
 
   }
   // function () {document.getElementById("box").style.backgroundColor='red'
-  
+
   public get onDidChange(): vscode.Event<vscode.Uri> {
     return this.onDidChangeEmitter.event;
   }
@@ -71,16 +71,16 @@ export class HtmlLtacProf {
   private httpServer : http.Server;
   private serverReady : Promise<void>;
   private bufferReady : Promise<void>;
-  private coqViewUri : vscode.Uri; 
-  private docRegistration : {dispose(): any}; 
+  private coqViewUri : vscode.Uri;
+  private docRegistration : {dispose(): any};
 
-  
+
   constructor(private results: proto.LtacProfResults) {
-    if(coqViewProvider===null) {    
+    if(coqViewProvider===null) {
       coqViewProvider = new IFrameDocumentProvider();
       this.docRegistration = vscode.workspace.registerTextDocumentContentProvider('coq-ltacprof', coqViewProvider);
     }
-    
+
     const httpServer = this.httpServer = http.createServer();
     this.serverReady = new Promise<void>((resolve, reject) =>
       httpServer.listen(0,'localhost',undefined,(e) => {
@@ -97,15 +97,15 @@ export class HtmlLtacProf {
 
     this.createBuffer();
   }
-  
+
   private handleClientMessage(event: {data: any; type: string; target: WebSocket}) {
     // const message = <ControllerEvent>JSON.parse(event.data);
     // switch(message.eventName) {
     //   case 'resize':
-        
+
     // }
   }
-  
+
   private createBuffer() {
     this.bufferReady = new Promise<void>(async (resolve, reject) => {
       try {
@@ -151,7 +151,7 @@ export class HtmlLtacProf {
   dispose() {
     this.docRegistration.dispose();
   }
-  
+
   // public async update(state: proto.CoqTopGoalResult) {
   //   this.currentState = state;
   //   for(const connection of this.server.clients) {
@@ -161,5 +161,5 @@ export class HtmlLtacProf {
   //   }
 
   // }
-  
+
 }

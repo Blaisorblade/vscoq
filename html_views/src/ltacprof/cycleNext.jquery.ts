@@ -4,6 +4,6 @@
     return siblings.eq((siblings.index($(this))+1)%siblings.length);
 } })(jQuery);
 
-interface JQuery { 
+interface JQuery {
   cycleNext(): JQuery;
 }

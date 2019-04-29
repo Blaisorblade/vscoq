@@ -18,7 +18,7 @@ export function formatTimeSpanMS(durationMS: number) {
   const hours = Math.floor(durationMS / 1000 / 60 / 60) - days*24;
   const minutes = Math.floor(durationMS / 1000 / 60) - hours*60;
   const seconds = Math.floor(durationMS / 1000) - minutes*60;
-  
+
   if (days > 0)
     return `${days}.${formatTimSpanNumber.format(hours)}:${formatTimSpanNumber.format(minutes)}:${formatTimSpanNumber.format(seconds)}`;
   else
@@ -107,7 +107,7 @@ export function toRangeDelta(oldRange:Range, text: string) : RangeDelta {
     charsDelta = newEnd.character - (oldRange.end.character-oldRange.start.character);
   else
     charsDelta = newEnd.character - oldRange.end.character;
-  
+
   return {
     start: oldRange.start,
     end: oldRange.end,
@@ -121,9 +121,9 @@ export function positionRangeDeltaTranslate(pos: Position, delta: RangeDelta) : 
     return pos;
   else if (delta.end.line === pos.line) {
     let x = pos.character + delta.charactersDelta;
-    if (delta.linesDelta > 0) 
+    if (delta.linesDelta > 0)
       x = x - delta.end.character;
-    else if (delta.start.line === delta.end.line + delta.linesDelta && delta.linesDelta < 0) 
+    else if (delta.start.line === delta.end.line + delta.linesDelta && delta.linesDelta < 0)
       x = x + delta.start.character;
     return new Position(pos.line + delta.linesDelta, x);
   }
@@ -136,9 +136,9 @@ export function positionRangeDeltaTranslateEnd(pos: Position, delta: RangeDelta)
     return pos;
   else if (delta.end.line === pos.line) {
     let x = pos.character + delta.charactersDelta;
-    if (delta.linesDelta > 0) 
+    if (delta.linesDelta > 0)
       x = x - delta.end.character;
-    else if (delta.start.line === delta.end.line + delta.linesDelta && delta.linesDelta < 0) 
+    else if (delta.start.line === delta.end.line + delta.linesDelta && delta.linesDelta < 0)
       x = x + delta.start.character;
     return new Position(pos.line + delta.linesDelta, x);
   }

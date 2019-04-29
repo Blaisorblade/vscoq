@@ -95,7 +95,7 @@ describe("AnnotatedText", () => {
     const x2 = [notation("["),variable("d"),notation("]")," ",notation("=")," ",notation("[]")];
     assert.deepStrictEqual(text.normalizeText(x2), x2);
   }));
-  
+
 
   it("textSplit", (() => {
     assert.deepStrictEqual(text.textSplit("foo bar", " "), {splits: ["foo", "bar"], rest: []});
@@ -110,7 +110,7 @@ describe("AnnotatedText", () => {
 
   }));
 
-  it("mapAnnotation", (() => {    
+  it("mapAnnotation", (() => {
     let hist : [string,text.Annotation,number,number][] = [];
     let x : text.AnnotatedText = "foo";
     assert.deepStrictEqual(text.mapAnnotation(x,(plainText,annotation,start, startD) => {

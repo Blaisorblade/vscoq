@@ -90,7 +90,7 @@ namespace UnitTests
     {
       var p = runProgram(coqtopw, String.Format("-coqtopbin {0} -ideslave -main-channel stdfds", coqtopBin));
       var responses = new CoqtopXmlReader(p.StandardOutput);
-      
+
       p.StandardInput.Write("<call val=\"Init\"><option val=\"none\"/></call>");
       var response1 = responses.Read();
       Assert.AreEqual("<value val=\"good\"><state_id val=\"1\" /></value>", response1);

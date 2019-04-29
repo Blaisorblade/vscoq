@@ -48,7 +48,7 @@ describe("Scopes", function() {
   beforeEach(function () {
     currentPos = vscode.Position.create(0,0);
   })
-  
+
   function nextPos(p?: vscode.Position) {
     if(!p)
       p = currentPos;
@@ -148,7 +148,7 @@ describe("Scopes", function() {
       assert.equal(s.scope.lookup(['M','foo'],ScopeFlags.All),null);
       assert.equal(s.scope.isBegin(), false);
       assert.equal(s.scope.isEnd(), false);
-      assert.deepStrictEqual(s.scope.getPrefixes(), []);      
+      assert.deepStrictEqual(s.scope.getPrefixes(), []);
     })
 
     it("isBegin", function() {
@@ -179,26 +179,26 @@ describe("Scopes", function() {
 
     it("lookupSymbolInList", function() {
       s.scope = new ScopeDeclaration(s,['M'], null) as any;
-      assertSymbolLookup([s.scope.lookupSymbolInList(['foo'],[symb.foo])], [symb.foo], []);      
-      assertSymbolLookup([s.scope.lookupSymbolInList(['bar'],[symb.foo, symb.bar, symb.aaa])], [symb.bar], []);      
-      assert.deepStrictEqual(s.scope.lookupSymbolInList(['bar'],[]), null);      
+      assertSymbolLookup([s.scope.lookupSymbolInList(['foo'],[symb.foo])], [symb.foo], []);
+      assertSymbolLookup([s.scope.lookupSymbolInList(['bar'],[symb.foo, symb.bar, symb.aaa])], [symb.bar], []);
+      assert.deepStrictEqual(s.scope.lookupSymbolInList(['bar'],[]), null);
     })
 
     it("lookupHere", function() {
       s.scope = new ScopeDeclaration(s,['M'], null) as any;
       s.scope.addExportSymbol(symb.foo);
-      assert.equal(s.scope.lookupHere(['bar'],ScopeFlags.All), null);      
-      assert.equal(s.scope.lookupHere(['foo'],ScopeFlags.Local), null);      
-      assert.equal(s.scope.lookupHere(['foo'],ScopeFlags.Private), null);      
+      assert.equal(s.scope.lookupHere(['bar'],ScopeFlags.All), null);
+      assert.equal(s.scope.lookupHere(['foo'],ScopeFlags.Local), null);
+      assert.equal(s.scope.lookupHere(['foo'],ScopeFlags.Private), null);
       assertSymbolLookup([s.scope.lookupHere(['foo'],ScopeFlags.All)], [symb.foo], []);
       assertSymbolLookup([s.scope.lookupHere(['foo'],ScopeFlags.Export)], [symb.foo], []);
     })
 
     it("resolveSymbol", function() {
       s.scope = new ScopeDeclaration(s,['M'], null) as any;
-      assert.equal(s.scope.resolveSymbol(null), null);      
+      assert.equal(s.scope.resolveSymbol(null), null);
       s.scope.addExportSymbol(symb.foo);
-      assert.equal(s.scope.resolveSymbol(null), null);      
+      assert.equal(s.scope.resolveSymbol(null), null);
       const si1 : SymbolInformation = {
         assumedPrefix: [],
         id: ['foo'],
@@ -313,7 +313,7 @@ describe("Scopes", function() {
     it.skip("getPrefix", function() {
       function testGetPrefix(tests: [number,QualId][]) {
         tests.forEach(([idx,expected]) => assert.deepStrictEqual(s[idx].scope.getPrefixes(), expected, `s[${idx}].prefix === ${expected.toString()}`));
-      }      
+      }
       testGetPrefix([
         [ 0, [] ],
         [ 1, [] ],

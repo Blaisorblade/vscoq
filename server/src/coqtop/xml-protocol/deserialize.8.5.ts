@@ -4,7 +4,7 @@ import * as text from '../../util/AnnotatedText';
 import {Deserialize, Node} from './deserialize.base';
 
 export class Deserialize_8_5 extends Deserialize {
-  public deserialize(value: Node) : coqProto.CoqValue {    
+  public deserialize(value: Node) : coqProto.CoqValue {
     return super.deserialize(value);
   }
 

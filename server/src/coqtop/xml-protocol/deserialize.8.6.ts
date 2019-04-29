@@ -35,7 +35,7 @@ namespace Nodes_8_6 {
     Nodes.SentenceStatusProcessedNode | Nodes.SentenceStatusIncompleteNode | Nodes.SentenceStatusCompleteNode | Nodes.SentenceStatusProcessingInNode |
     Nodes.CustomFeeedbackNode | Nodes.LtacProfFeeedbackNode;
 
-  
+
   export type TypedNode =
     /** 8.6 */
     MessageNode |
@@ -50,7 +50,7 @@ namespace Nodes_8_6 {
     Nodes.FeedbackNode | Nodes.FeedbackContentNode |
     Nodes.ValueNode;
 
-  
+
 }
 
 export class Deserialize_8_6 extends Deserialize {

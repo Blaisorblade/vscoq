@@ -12,13 +12,13 @@ import {
 } from 'vscode-languageserver';
 import * as vscodeLangServer from 'vscode-languageserver';
 import * as util from 'util';
- 
+
 import {CoqDocument} from './document';
 import * as coqproto from './protocol';
 import {CoqTopSettings, CoqSettings, Settings} from './protocol';
 import {CoqProject} from './CoqProject';
 
-// Create a connection for the server. The connection uses 
+// Create a connection for the server. The connection uses
 // stdin / stdout for message passing
 export let connection: IConnection = createConnection(process.stdin, process.stdout);
 
@@ -32,7 +32,7 @@ export let project : CoqProject = null;
 // documents.listen(connection);
 
 // After the server has started the client sends an initilize request. The server receives
-// in the passed params the rootPath of the workspace plus the client capabilites. 
+// in the passed params the rootPath of the workspace plus the client capabilites.
 let workspaceRoot: string;
 connection.onInitialize((params): InitializeResult => {
   console.log = (e) => {connection.console.log(">>> " + e)};
@@ -117,7 +117,7 @@ process.on('SIGBREAK', function () {
 
 // This handler provides the initial list of the completion items.
 connection.onCompletion((textDocumentPosition: TextDocumentPositionParams): CompletionItem[] => {
-	// The pass parameter contains the position of the text document in 
+	// The pass parameter contains the position of the text document in
 	// which code complete got requested. For the example we ignore this
 	// info and always provide the same completion items.
 	return [];
@@ -242,7 +242,7 @@ function sendHighlightUpdates(documentUri: string, highlights: coqproto.Highligh
 function sendDiagnostics(documentUri: string, diagnostics: Diagnostic[]) {
   connection.sendDiagnostics({
     diagnostics: diagnostics,
-    uri: documentUri, 
+    uri: documentUri,
   });
 }
 
@@ -290,11 +290,11 @@ connection.onDocumentLinks((p:DocumentLinkParams,token: CancellationToken) : Pro
 connection.onDocumentLinkResolve((link: vscodeLangServer.DocumentLink,token: CancellationToken) : vscodeLangServer.DocumentLink => {
 return link;
   // connection.console.log("onDocumentLinkResolve: " + link);
-  // return link;  
+  // return link;
 })
 
 connection.onDidOpenTextDocument((params: vscodeLangServer.DidOpenTextDocumentParams) => {
-  const uri = params.textDocument.uri; 
+  const uri = params.textDocument.uri;
   project.open(params.textDocument, {
     sendHighlightUpdates: (h) => sendHighlightUpdates(uri, h),
     sendDiagnostics: (diagnostics) => sendDiagnostics(uri, diagnostics),

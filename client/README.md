@@ -19,5 +19,5 @@ A plugin for the [Coq Proof Assistant 8.5 and 8.6](https://coq.inria.fr/) in [Vi
 
 <img alt="Screenshot of Proof Goal" src="https://cloud.githubusercontent.com/assets/16118166/15950935/9c8537dc-2e81-11e6-9954-5eefeac23a7a.png" width="100%"/>
 
-LtacProfiling view:  
+LtacProfiling view:
 <img alt="Simple example" src="https://cloud.githubusercontent.com/assets/16118166/15950939/a00a8e02-2e81-11e6-98c4-9425bf6ab9c9.png" width="100%"/>

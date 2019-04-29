@@ -55,7 +55,7 @@ export class CoqProject implements vscode.Disposable {
   public static getInstance() {
     return CoqProject.instance;
   }
-  
+
   dispose() {
     this.documents.forEach((doc) => doc.dispose());
     this.subscriptions.forEach((s) => s.dispose());

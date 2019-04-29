@@ -18,7 +18,7 @@
 * customize proof-view theme (#91)
     * command: "Customize proof-view styling" --> `extension.coq.proofView.customizeProofViewStyle`
 * better auto-indenting (#87 #88)
-    * settings: `coq.editor.indentAfterBullet` 
+    * settings: `coq.editor.indentAfterBullet`
 * support custom command to externally view proof-state (#95)
     * settings: `coq.externalViewUrlCommand`
 * feature: reveal cached proof state at cursor (#66)
@@ -49,7 +49,7 @@
 * more snippets
 * parser fixes (better Unicode handling)
 
-## 0.1.3 
+## 0.1.3
 * fixed prettify-symbols-mode in proof-view
 * somewhat better error handling around pegjs parser errors
 * redirect console to connection.console (3rd party libs were breaking the jsonrpc protoocl over console)

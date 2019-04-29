@@ -91,7 +91,7 @@ Adds a toplevel command (e.g. vernacular, definition, tactic) to the given state
 ```
 * When closing a focused proof (in the middle of a bunch of interpreted commands),
 the `Qed` will be assigned a prior `stateId` and `nextStateId` will be the id of an already-interpreted
-state that should become the next tip. 
+state that should become the next tip.
 ```html
 <value val="good">
   <pair>
@@ -147,7 +147,7 @@ Move focus to `${stateId}`, such that commands may be added to the new state ID.
   </union>
 </value>
 ```
-* Failure: If `stateId` is in an error-state and cannot be jumped to, `errorFreeStateId` is the parent state of ``stateId` that shopuld be edited instead. 
+* Failure: If `stateId` is in an error-state and cannot be jumped to, `errorFreeStateId` is the parent state of ``stateId` that shopuld be edited instead.
 ```html
 <value val="fail" loc_s="${startOffsetOfError}" loc_e="${endOffsetOfError}">
   <state_id val="${errorFreeStateId}"/>
@@ -253,12 +253,12 @@ Pseudocode for listing all of the goals in order: `rev (flat_map fst background)
 
 
 ### <a name="command-status">**Status(force: bool)**</a>
-CoqIDE typically sets `force` to `false`. 
+CoqIDE typically sets `force` to `false`.
 ```html
 <call val="Status"><bool val="${force}"/></call>
 ```
 #### *Returns*
-*  
+*
 ```html
 <status>
   <string>${path}</string>
@@ -344,7 +344,7 @@ In practice, `stateId` is 0, but the effect is to perform the query on the curre
 
 
 ### <a name="command-search">**Search([(constraintTypeN: string, constraintValueN: string, positiveConstraintN: boolean)])**</a>
-Searches for objects that satisfy a list of constraints. If `${positiveConstraint}` is `false`, then the constraint is inverted. 
+Searches for objects that satisfy a list of constraints. If `${positiveConstraint}` is `false`, then the constraint is inverted.
 ```html
 <call val="Search">
   <list>

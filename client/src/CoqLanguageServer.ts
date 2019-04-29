@@ -103,32 +103,32 @@ export class CoqLanguageServer implements vscode.Disposable {
     this.subscriptions = [];
   }
 
-  private onUpdateHighlightsHandlers = new Set<(params: proto.NotifyHighlightParams) => void>(); 
+  private onUpdateHighlightsHandlers = new Set<(params: proto.NotifyHighlightParams) => void>();
 
   public onUpdateHighlights(listener: (params: proto.NotifyHighlightParams) => void) : vscode.Disposable {
     this.onUpdateHighlightsHandlers.add(listener);
     return { dispose: () => this.onUpdateHighlightsHandlers.delete(listener) }
   }
 
-  private onMessageHandlers = new Set<(params: proto.NotifyMessageParams) => void>(); 
+  private onMessageHandlers = new Set<(params: proto.NotifyMessageParams) => void>();
   public onMessage(listener: (params: proto.NotifyMessageParams) => void) {
     this.onMessageHandlers.add(listener);
     return { dispose: () => this.onMessageHandlers.delete(listener) }
   }
 
-  private onResetHandlers = new Set<(params: proto.NotificationParams) => void>(); 
+  private onResetHandlers = new Set<(params: proto.NotificationParams) => void>();
   public onReset(listener: (params: proto.NotificationParams) => void) {
     this.onResetHandlers.add(listener);
     return { dispose: () => this.onResetHandlers.delete(listener) }
   }
 
-  private onUpdateCoqStmFocusHandlers = new Set<(params: proto.DocumentPositionParams) => void>(); 
+  private onUpdateCoqStmFocusHandlers = new Set<(params: proto.DocumentPositionParams) => void>();
   public onUpdateCoqStmFocus(listener: (params: proto.DocumentPositionParams) => void) {
     this.onUpdateCoqStmFocusHandlers.add(listener);
     return { dispose: () => this.onUpdateCoqStmFocusHandlers.delete(listener) }
   }
 
-  private onLtacProfResultsHandlers = new Set<(params: proto.NotifyLtacProfResultsParams) => void>(); 
+  private onLtacProfResultsHandlers = new Set<(params: proto.NotifyLtacProfResultsParams) => void>();
   public onLtacProfResults(listener: (params: proto.NotifyLtacProfResultsParams) => void) {
     this.onLtacProfResultsHandlers.add(listener);
     return { dispose: () => this.onLtacProfResultsHandlers.delete(listener) }

@@ -17,7 +17,7 @@ function regexpOptionalGroup(re: string) {
 export class PrettifySymbolsMode {
   private regex: RegExp|null;
   private substs: string[];
-  
+
   public constructor(substitutions: Substitution[]) {
     if(!substitutions || substitutions.length===0) {
       this.regex = null;
@@ -60,7 +60,7 @@ export class PrettifySymbolsMode {
     let newText : (string|TextAnnotation)[] = [];
     this.regex.lastIndex = 0;
     let currentIdx = 0;
-    let match : RegExpExecArray;    
+    let match : RegExpExecArray;
     while(match = this.regex.exec(text)) {
       if(match[0].length === 0)
         return text;
