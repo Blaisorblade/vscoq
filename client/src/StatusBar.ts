@@ -1,5 +1,5 @@
 /** Manages the status bar at the bottom of vscode. All Coq documents should go through this module
- * 
+ *
  */
 import * as vscode from 'vscode';
 import * as proto from './protocol';
@@ -47,7 +47,7 @@ class CoqStatusBarManager implements vscode.Disposable {
     if(this.computingTimer && (state.status != "computing" || state.computeStatus !== proto.ComputingStatus.Computing)) {
       clearInterval(this.computingTimer);
       this.computingTimer = null;
-      this.showingComputingTimeStatus = false;      
+      this.showingComputingTimeStatus = false;
     }
 
     switch(state.status) {
@@ -104,12 +104,12 @@ class CoqStatusBarManager implements vscode.Disposable {
     } else {
       this.computingStatusBar.text = '';
       if(this.showingComputingTimeStatus) {
-        this.showingComputingTimeStatus = false;        
+        this.showingComputingTimeStatus = false;
         this.computingStatusBar.hide();
         this.interruptButtonStatusBar.hide();
       }
     }
-    
+
   }
 
   public hide() {
@@ -150,7 +150,7 @@ export class StatusBar implements vscode.Disposable {
     if(StatusBar.focusedContext !== this) {
       StatusBar.focusedContext = this;
       this.refreshState();
-    }    
+    }
   }
 
   public unfocus() {
@@ -180,7 +180,7 @@ export class StatusBar implements vscode.Disposable {
 
     this.state =
       { status: 'computing'
-      , message: message ? message : this.state.status === 'computing' ? this.state.message : "" 
+      , message: message ? message : this.state.status === 'computing' ? this.state.message : ""
       , startTime: startTime
       , computeTimeMS: computeTime
       , computeStatus: computeStatus
@@ -198,7 +198,7 @@ export class StatusBar implements vscode.Disposable {
     if(running && this.state.status === "stopped")
       this.state = { status: 'ready' };
     else if(!running)
-      this.state = {status: 'stopped'};      
+      this.state = {status: 'stopped'};
     this.refreshState();
   }
 

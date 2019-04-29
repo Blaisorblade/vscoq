@@ -295,7 +295,7 @@
             <array>
                 <dict>
                     <key>include</key>
-                    <string>#block_comment</string>                    
+                    <string>#block_comment</string>
                 </dict>
                 <dict>
                     <key>include</key>

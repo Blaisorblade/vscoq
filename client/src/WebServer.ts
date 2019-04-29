@@ -40,7 +40,7 @@ async function handleRequest(request: http.IncomingMessage, response: http.Serve
   } catch(err) {
     respondError(response, err);
     return;
-  }  
+  }
 
   try {
     if(file.contentType)
@@ -51,7 +51,7 @@ async function handleRequest(request: http.IncomingMessage, response: http.Serve
     fs.createReadStream(file.fsPath).pipe(response);
   } catch(err) {
     response.end();
-  }  
+  }
 }
 
 function respondError(response: http.ServerResponse, err: any) {
@@ -103,7 +103,7 @@ export async function serveFile(path: string, file: string, contentType?: string
 
 
 async function initServer() : Promise<Address> {
-  if(!server) { 
+  if(!server) {
     let srv = http.createServer(handleRequest);
     server = srv;
     serverReady = new Promise<Address>((resolve,reject) => {

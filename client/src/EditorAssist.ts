@@ -53,7 +53,7 @@ export function reload() : vscode.Disposable {
     .add(0x00A0)              // Non-breaking space.
     .add(0x0027)              // Special space/
     .toString()
-    + ")*");  
+    + ")*");
   subscriptions.push(vscode.languages.setLanguageConfiguration('coq', {
     indentationRules: { increaseIndentPattern: increaseIndentRE, decreaseIndentPattern: matchNothing },
     wordPattern: wordPattern,

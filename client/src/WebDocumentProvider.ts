@@ -218,7 +218,7 @@ function load() {
       }
       host.src = message.uri;
     } else if(message.type === 'goto') {
-      gotoAnchor(host.contentWindow.document, message.goto);  
+      gotoAnchor(host.contentWindow.document, message.goto);
       connection.send(JSON.stringify({type:"result", result: undefined, callId: message.callId}));
     } else if(message.type === 'data') {
       host.contentWindow.postMessage(message.data, "*");
@@ -242,7 +242,7 @@ let clickEvent = new MouseEvent('click', {view: window, bubbles: true, cancelabl
 function initializeDoc(doc, goto) {
   applyStyles(doc);
   if(goto)
-    gotoAnchor(doc, goto);  
+    gotoAnchor(doc, goto);
 }
 
 function gotoAnchor(doc, goto) {
@@ -282,7 +282,7 @@ function applyStyles(doc) {
 <iframe id="host" seamless style="position:absolute;top:0px;left:0px;right:0px;bottom:0px;border:none;margin:0px;padding:0px;width:100%;height:100%" ${ifattr} />
 </body>`;
   }
-  
+
   public get onDidChange(): vscode.Event<vscode.Uri> {
     return this.onDidChangeEmitter.event;
   }

@@ -56,7 +56,7 @@ export class Highlights {
       editor.setDecorations(decorations.processing , this.current.ranges[proto.HighlightType.Processing]);
       editor.setDecorations(decorations.incomplete , this.current.ranges[proto.HighlightType.Incomplete]);
       editor.setDecorations(decorations.axiom      , this.current.ranges[proto.HighlightType.Axiom]);
-      editor.setDecorations(decorations.processed  , this.current.ranges[proto.HighlightType.Processed]); 
+      editor.setDecorations(decorations.processed  , this.current.ranges[proto.HighlightType.Processed]);
     }
   }
 
@@ -78,7 +78,7 @@ export class Highlights {
   //     }
   //   }
   // }
-  
+
   // public refreshHighlights(editors: vscode.TextEditor[]) {
   //   this.textHighlights
   //     .forEach((highlight,idx,a) => {
@@ -121,7 +121,7 @@ export class Highlights {
   //       highlight.ranges.applyEdit(delta);
   //     });
   // }
-// 
+//
 //   // Increases or decreases the number of characters in the highlight ranges starting
 //   // at `position` and adjusts all subsequent ranges
 //   public shiftCharacters(position: number, count: number) : boolean {
@@ -136,15 +136,15 @@ export class Highlights {
 //       beginSent.textEnd += count;
 //     } else if(beginIdx < this.sentencesByPosition.length-1
 //       && -count > this.sentencesByPosition[beginIdx+1].textBegin-beginSent.textEnd) {
-//       return false; // cannot remove more characters than exist between sentences      
+//       return false; // cannot remove more characters than exist between sentences
 //     }
-//     
+//
 //     // shift subsequent sentences
 //     for (let idx = beginIdx+1; idx < this.sentencesByPosition.length; ++idx) {
 //       this.sentencesByPosition[idx].textBegin+= count;
 //       this.sentencesByPosition[idx].textEnd+= count;
 //     }
-//     
+//
 //     return true;
 //   }
 
