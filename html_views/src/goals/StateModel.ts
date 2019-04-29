@@ -164,7 +164,6 @@ class StateModel {
   // private static hypothesesNodeClass = '.hypotheses';
   // private static goalNodeClass = '.goal';
   // private static focusedStateClass = '.focusedState';
-  private focusedState = 0;
   // private coqState : ProofView;
 
 
@@ -190,7 +189,6 @@ class StateModel {
   public updateState(state: CommandResult) {
     try {
       hasSubstitutions = false;
-      this.focusedState = 0;
       this.clearErrorMessage();
       $('#stdout').text('');
 
