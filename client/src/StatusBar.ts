@@ -1,5 +1,5 @@
 /** Manages the status bar at the bottom of vscode. All Coq documents should go through this module
- * 
+ *
  */
 import * as vscode from 'vscode';
 import * as proto from './protocol';
@@ -46,7 +46,7 @@ class CoqStatusBarManager implements vscode.Disposable {
     if(this.computingTimer && (state.status != "computing" || state.computeStatus !== proto.ComputingStatus.Computing)) {
       clearInterval(this.computingTimer);
       this.computingTimer = null;
-      this.showingComputingTimeStatus = false;      
+      this.showingComputingTimeStatus = false;
     }
 
     switch(state.status) {
@@ -97,12 +97,12 @@ class CoqStatusBarManager implements vscode.Disposable {
     } else {
       this.computingStatusBar.text = '';
       if(this.showingComputingTimeStatus) {
-        this.showingComputingTimeStatus = false;        
+        this.showingComputingTimeStatus = false;
         this.computingStatusBar.hide();
         this.interruptButtonStatusBar.hide();
       }
     }
-    
+
   }
 
   public hide() {
@@ -140,7 +140,7 @@ export class StatusBar implements vscode.Disposable {
     if(StatusBar.focusedContext !== this) {
       StatusBar.focusedContext = this;
       this.refreshState();
-    }    
+    }
   }
 
   public unfocus() {
@@ -161,7 +161,7 @@ export class StatusBar implements vscode.Disposable {
     let startTime : [number,number];
     let computeTime = 0;
     if(this.state.status !== 'computing' || (computeStatus === proto.ComputingStatus.Computing && this.state.computeStatus !== computeStatus))
-      startTime = process.hrtime();
+      startTime = process.hrtime() as [number,number];
     else {
       startTime = this.state.startTime;
       computeTime = this.state.computeTimeMS;
@@ -169,7 +169,7 @@ export class StatusBar implements vscode.Disposable {
 
     this.state =
       { status: 'computing'
-      , message: message ? message : this.state.status === 'computing' ? this.state.message : "" 
+      , message: message ? message : this.state.status === 'computing' ? this.state.message : ""
       , startTime: startTime
       , computeTimeMS: computeTime
       , computeStatus: computeStatus

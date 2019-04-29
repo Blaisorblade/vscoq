@@ -5,18 +5,19 @@
     "name": "Christian J. Bell",
     "email": "siegebell@gmail.com"
   },
-	"version": "0.0.1",
-	"publisher": "siegebell",
+  "version": "0.0.1",
+  "publisher": "siegebell",
   "license": "MIT license (MIT)",
   "engines": {
- 		"vscode": "^1.5.3",
-    "node": "*"
+    "vscode": "1.7.2",
+    "node": "6.6"
   },
   "dependencies": {
     "vscode-jsonrpc": "3.0.1-alpha.2",
     "vscode-languageserver": "3.0.1-alpha.3",
+    "vscode-languageserver-types": "3.0.1-alpha.3",
     "sax": "1.2.1",
-    "xml2js": "^0.4.17",
+    "xml2js": "0.4.17",
     "async": "2.0.1",
     "diff": "2.2.3",
     "pegjs": "0.10.0",
@@ -26,19 +27,19 @@
     "@types/diff": "0.0.31"
   },
   "devDependencies": {
-    "typescript": "^2.0.9",
-    "mocha": "^3.1.1",
-    "@types/node": "^6.0.58",
-    "@types/mocha": "^2.2.32"
+    "typescript": "2.0.9",
+    "mocha": "3.1.1",
+    "@types/node": "6.0.58",
+    "@types/mocha": "2.2.32"
   },
   "scripts": {
     "compile": "installServerIntoExtension ../client ./package.json ./tsconfig.json && tsc -p ./",
     "watch": "installServerIntoExtension ../client ./package.json ./tsconfig.json && tsc --watch -p ./",
-		"test": "installServerIntoExtension ../client ./package.json ./tsconfig.json && tsc -p ./ && mocha -u tdd ../client/server/test",
-		"test-debug": "installServerIntoExtension ../client ./package.json ./tsconfig.json && tsc -p ./ && mocha -u tdd --debug-brk=5858 ../client/server/test"
+    "test": "installServerIntoExtension ../client ./package.json ./tsconfig.json && tsc -p ./ && mocha -u tdd ../client/server/test",
+    "test-debug": "installServerIntoExtension ../client ./package.json ./tsconfig.json && tsc -p ./ && mocha -u tdd --debug-brk=5858 ../client/server/test"
   },
-  "repository" :
-  { "type" : "git"
-  , "url" : "https://github.com/siegebell/vscoq.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/siegebell/vscoq.git"
   }
 }
