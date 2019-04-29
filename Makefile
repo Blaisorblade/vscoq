@@ -2,14 +2,15 @@ clean:
 	rm -rf html_views/node_modules server/node_modules client/node_modules
 	rm -rf client/server client/html_views
 
-html_views/node_modules:
+html_views/node_modules: FORCE
 	cd html_views && npm install
 
-server/node_modules:
+server/node_modules: FORCE
 	cd server && npm install
 
-client/node_modules:
+client/node_modules: FORCE
 	cd client && npm install
+.PHONY: FORCE
 
 node_modules: html_views/node_modules server/node_modules client/node_modules
 
