@@ -11,7 +11,7 @@
   "publisher": "siegebell",
   "license": "MIT",
   "engines": {
-    "vscode": "1.7.2"
+    "vscode": "^1.7.2"
   },
   "categories": [
     "Languages"

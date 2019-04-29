@@ -9,7 +9,7 @@
   "publisher": "siegebell",
   "license": "MIT license (MIT)",
   "engines": {
-    "vscode": "1.7.2",
+    "vscode": "^1.7.2",
     "node": "6.6"
   },
   "dependencies": {
