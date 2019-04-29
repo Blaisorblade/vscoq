@@ -161,7 +161,7 @@ export class StatusBar implements vscode.Disposable {
     let startTime : [number,number];
     let computeTime = 0;
     if(this.state.status !== 'computing' || (computeStatus === proto.ComputingStatus.Computing && this.state.computeStatus !== computeStatus))
-      startTime = process.hrtime() as [number,number];
+      startTime = process.hrtime();
     else {
       startTime = this.state.startTime;
       computeTime = this.state.computeTimeMS;

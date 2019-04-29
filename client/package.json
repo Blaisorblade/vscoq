@@ -563,7 +563,7 @@
     "typescript": "2.0.9",
     "vscode": "1.0.3",
     "copyfiles": "1.0.0",
-    "@types/node": "6.0.40"
+    "@types/node": "6.0.51"
   },
   "dependencies": {
     "vscode-jsonrpc": "3.0.1-alpha.2",
@@ -579,7 +579,8 @@
     "@types/glob": "5.0.30",
     "@types/xml2js": "0.0.28",
     "@types/chalk": "0.4.31",
-    "@types/ws": "0.0.34"
+    "@types/ws": "0.0.34",
+    "@types/minimatch": "2.0.29"
   },
   "repository": {
     "type": "git",
