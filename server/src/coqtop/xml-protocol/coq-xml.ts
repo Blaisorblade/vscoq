@@ -59,7 +59,7 @@ export class XmlStream extends events.EventEmitter {
         this.on('error', (x:any) => callbacks.onError(x));
     }
 
-    let options : sax.SAXOptions | {strictEntities: boolean} = {
+    let options = {
       lowercase: true,
       trim: false,
       normalize: false,
@@ -69,7 +69,7 @@ export class XmlStream extends events.EventEmitter {
       noscript: true
     };
 
-    let saxStream = sax.createStream(false,options);
+    let saxStream = sax.createStream(false, options);
     saxStream.on('error', (err:any) => this.onError(err));
     saxStream.on('opentag', (node:sax.Tag) => this.onOpenTag(node));
     saxStream.on('closetag', (tagName:string) => this.onCloseTag(tagName));
