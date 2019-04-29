@@ -1,7 +1,7 @@
 {
   function errorUnclosedBracket(lb, end) {
     error("unterminated bracket '" + lb.text + "'", {start: lb.loc.start, end: end})
-  } 
+  }
 }
 
 Start = TrySentence
@@ -15,7 +15,7 @@ TrySentence = OneSentence / NoMoreSentences
 
 OneSentence
   = sent:Sentence rest:$.* {
-    return Object.assign(sent, {rest: rest} )    
+    return Object.assign(sent, {rest: rest} )
   }
 
 AllSentences
@@ -63,7 +63,7 @@ SModule
 SInclude
   = "Include" __ first:QualId rest:(_ "<+" _ id:QualId {return id})* _ EndOfSentence
   { return {type: "include", qualids: [first, ...rest] } }
-  
+
 SSection
   = "Section" __ ident:Identifier _ EndOfSentence
   { return { type: "section", ident:ident} }
@@ -77,7 +77,7 @@ SLtacDef
   = "Ltac" __ ident:Identifier _ (":="/"::=") _ ltac:$Command _ EndOfSentence {
   	return { type: "ltacdef", ident: ident, ltac: ltac }
   }
-  
+
 SDefinition
   = kind:DefKind __ ident:Identifier stmt:$Command _ EndOfSentence
     { return {type: "definition", kind: kind, ident: ident, stmt: stmt} }
@@ -118,8 +118,8 @@ StuffUntilPipeOrWith
   = $(!("|" / (__ "with" __) / EndOfSentence) .)*
 StuffUntilWith
   = $(!((__ "with" __) / EndOfSentence) .)*
-  
-  
+
+
 SAssumption
   = kind:AssumptionKind __ idents:Assumptions _ EndOfSentence
   { return {type: "assumptions", kind:kind, idents:idents } }
@@ -229,7 +229,7 @@ Comment "comment"
 
 CommentText "commentText"
   = (String / Comment / ([^"*(] / ("(" !"*") / ("*" !")"))+ )*
-  
+
 UnicodeLetter
   = Ll / Lu / Lt / Lo
   / [\u1D00-\u1D7F]  // Phonetic Extensions.

@@ -32,7 +32,7 @@ interface SentenceCollection_PRIVATE {
 //   }
 
 //   public getDocumentItem() : TextDocumentItem {
-//     return { uri: this.uri, languageId: this.languageId, text: this.getText(), version: 0, };    
+//     return { uri: this.uri, languageId: this.languageId, text: this.getText(), version: 0, };
 //   }
 
 //   public validateRange(range: vscode.Range) : vscode.Range {
@@ -83,14 +83,14 @@ interface SentenceCollection_PRIVATE {
 //     if(down > 0) {// delete & insert
 //       const lastLine = start+count-1;
 //       changes.push(this.makeChange(lastLine, this.lines[lastLine].length, lastLine+down, this.lines[lastLine+down].length, ""));
-//       const cut = this.lines.splice(start+count, down); 
+//       const cut = this.lines.splice(start+count, down);
 //       changes.push(this.makeChange(start, 0, start, 0, cut.join(this.newLine)));
 //       this.lines.splice(start, 0, ...cut);
 //     } else {// insert & delete
 //       changes.push(this.makeChange(start+count, 0, start+count, 0, )));
-      
+
 //       changes.push(this.makeChange(lastLine, this.lines[lastLine].length, lastLine+down, this.lines[lastLine+down].length, ""));
-//       const cut = this.lines.splice(start+count, down); 
+//       const cut = this.lines.splice(start+count, down);
 //       this.lines.splice(start, 0, ...cut);
 //     }
 //     return changes
@@ -102,7 +102,7 @@ function getText(text: string, range?: vscode.Range) : string {
   const newLines = text.split(/[^\r\n]+/);
   newLines.shift();
   const lineAt = (l: number) => lines[l] + newLines[l];
-  
+
   if(range.start.line === range.end.line)
     return lineAt(range.start.line).substring(range.start.character, range.end.character);
   else
@@ -135,7 +135,7 @@ describe("SentenceCollection", function() {
 
   describe('applyChangesToDocumentText', function() {
     it('1', function() {
-      const doc = newDoc("Goal True.\npose True.\n"); 
+      const doc = newDoc("Goal True.\npose True.\n");
       let sc = new SentenceCollection(doc);
       assert.equal(sc.getText(), "Goal True.\npose True.\n");
       (sc as any as SentenceCollection_PRIVATE).applyChangesToDocumentText([makeChange("Goal True.\npose True.\n", 0, 10, 1, 10, ""),makeChange("Goal True.\n", 0, 0, 0, 0, "pose True.\n")])
@@ -147,12 +147,12 @@ describe("SentenceCollection", function() {
     let doc : TextDocumentItem;
     let sc : SentenceCollection;
     beforeEach(function() {
-      doc = newDoc("Goal True.\npose True.\n"); 
+      doc = newDoc("Goal True.\npose True.\n");
       sc = new SentenceCollection(doc);
       assert.equal(sc.getText(), "Goal True.\npose True.\n");
       assert.deepStrictEqual(sc.getSentences().map(s => s.getText()), ["Goal True.","\npose True."]);
     })
-  
+
     it('down - two transactions', function() {
       sc.applyTextChanges(1+doc.version, [makeChange("Goal True.\npose True.\n", 0, 10, 1, 10, "")])
       assert.equal(sc.getText(), "Goal True.\n");

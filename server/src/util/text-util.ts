@@ -72,7 +72,7 @@ export function rangeToString(r: Range) {
 //   Before   = 1 << 0, // 001
 //   Within   = 1 << 1, // 010
 //   After    = 1 << 2, // 100
-//   AtStart  = 3,      // 011 
+//   AtStart  = 3,      // 011
 //   AtEnd    = 1 << 1, // 10
 // }
 // export function positionRangeIntersection(pos: Position, range: Range) : PositionRangeIntersection {
@@ -134,7 +134,7 @@ export function rangeToString(r: Range) {
 // }
 // export function rangeIntersection(range1: Range, range2: Range) : RangeIntersection {
 //   let result = <number>comparePositions(range1.start,range2.start) | (<number>comparePositions(range1.start,range2.start)) << 3;
-  
+
 //   if(result & RangeIntersection.StartLT || result & RangeIntersection.StartEq)
 //     result|= RangeIntersection.StartLE;
 //   else if(result & RangeIntersection.StartGT || result & RangeIntersection.StartEq)
@@ -148,9 +148,9 @@ export function rangeToString(r: Range) {
 //   return result;
 // }
 
-/** Calculates the offset into text of pos, where textStart is the position where text starts and both pos and textStart are absolute positions 
+/** Calculates the offset into text of pos, where textStart is the position where text starts and both pos and textStart are absolute positions
  * @return the offset into text indicated by pos, or -1 if pos is out of range
- * 
+ *
  * 'abc\ndef'
  * 'acbX\ndef'
  * +++*** --> +++_***
@@ -213,8 +213,8 @@ export function positionAtRelative(start: Position, text: string, offset: number
 
 /**
  * @returns the Position (line, column) for the location (character position), assuming that text begins at start.
- * 
- * @param offset -- counts all newlines (e.g. '\r\n') as *one character* 
+ *
+ * @param offset -- counts all newlines (e.g. '\r\n') as *one character*
  */
 export function positionAtRelativeCNL(start: Position, text: string, offset: number) : Position {
   if(offset > text.length) {
@@ -265,7 +265,7 @@ export function toRangeDelta(oldRange:Range, text: string) : RangeDelta {
     charsDelta = newEnd.character - (oldRange.end.character-oldRange.start.character);
   else
     charsDelta = newEnd.character - oldRange.end.character;
-  
+
   return {
     start: oldRange.start,
     end: oldRange.end,
@@ -279,9 +279,9 @@ export function positionRangeDeltaTranslate(pos: Position, delta: RangeDelta) : 
     return pos;
   else if (delta.end.line === pos.line) {
     let x = pos.character + delta.charactersDelta;
-    if (delta.linesDelta > 0) 
+    if (delta.linesDelta > 0)
       x = x - delta.end.character;
-    else if (delta.start.line === delta.end.line + delta.linesDelta && delta.linesDelta < 0) 
+    else if (delta.start.line === delta.end.line + delta.linesDelta && delta.linesDelta < 0)
       x = x + delta.start.character;
     return Position.create(pos.line + delta.linesDelta, x);
   }
@@ -297,13 +297,13 @@ export function positionRangeDeltaTranslateEnd(pos: Position, delta: RangeDelta)
     let result : Position;
     if (delta.end.line === pos.line) {
       let x = pos.character + delta.charactersDelta;
-      if (delta.linesDelta > 0) 
+      if (delta.linesDelta > 0)
         x = x - delta.end.character;
-      else if (delta.start.line === delta.end.line + delta.linesDelta && delta.linesDelta < 0) 
+      else if (delta.start.line === delta.end.line + delta.linesDelta && delta.linesDelta < 0)
         x = x + delta.start.character;
       result = Position.create(pos.line + delta.linesDelta, x);
     } else // if(pos.line > delta.end.line)
-      result = Position.create(pos.line + delta.linesDelta, pos.character);    
+      result = Position.create(pos.line + delta.linesDelta, pos.character);
     // But do not move above that delta's start position
     if(positionIsBefore(result,delta.start))
       return delta.start;
@@ -315,9 +315,9 @@ export function positionRangeDeltaTranslateEnd(pos: Position, delta: RangeDelta)
   //   return pos; // equal, but the change is extending from the end instead of moving intop the end
   // else if (delta.end.line === pos.line) {
   //   let x = pos.character + delta.charactersDelta;
-  //   if (delta.linesDelta > 0) 
+  //   if (delta.linesDelta > 0)
   //     x = x - delta.end.character;
-  //   else if (delta.start.line === delta.end.line + delta.linesDelta && delta.linesDelta < 0) 
+  //   else if (delta.start.line === delta.end.line + delta.linesDelta && delta.linesDelta < 0)
   //     x = x + delta.start.character;
   //   return Position.create(pos.line + delta.linesDelta, x);
   // }

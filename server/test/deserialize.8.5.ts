@@ -81,7 +81,7 @@ suite("Deserialize 8.5", () => {
     const results = await parse('<list><int>4</int><string>hi</string><int>1</int></list>');
     assert.deepStrictEqual(results, [[4, 'hi', 1]]);
   });
-  
+
   test("bool", async function () {
     const results = await parse([
         '<bool val="true"></bool>',
@@ -160,7 +160,7 @@ suite("Deserialize 8.5", () => {
       proto.MessageLevel.Warning, proto.MessageLevel.Info, proto.MessageLevel.Notice,
       proto.MessageLevel.Error, proto.MessageLevel.Debug]);
   });
-  
+
   test("message", async function () {
     const results = await parse([
       '<message><message_level val="warning"/><string>hi</string></message>',

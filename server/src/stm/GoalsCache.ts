@@ -25,7 +25,7 @@ type ProofViewNoFocus = {
 
 /**
  * Caches goals, which can be shared between many STM states.
- * 
+ *
  * TODO: use reference counting to deallocate goals when all of their states are rewound
  */
 export class GoalsCache {
@@ -62,7 +62,7 @@ export class GoalsCache {
       abandonedGoals: pv.abandonedGoals.map(g => g.id),
       shelvedGoals: pv.shelvedGoals.map(g => g.id),
       backgroundGoals: getUnfocusedIds(pv.backgroundGoals),
-    } 
+    }
   }
 
   private getBackgroundGoals(state: UnfocusedGoalStackReference|null) : UnfocusedGoalStack|null {

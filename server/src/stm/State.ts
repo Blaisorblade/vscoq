@@ -47,7 +47,7 @@ export class State {
   private error?: StatusErrorInternal = undefined;
   // set to true when a document change has invalidated the meaning of the associated sentence; this state needs to be cancelled
   private markedInvalidated = false;
-  private goal : ProofViewReference | null = null; 
+  private goal : ProofViewReference | null = null;
 
   private constructor
     ( private commandText: string
@@ -149,7 +149,7 @@ export class State {
   }
 
   public updateWorkerStatus(workerId: string, status: string) {
-    
+
   }
 
   /** Handle sentence-status updates as they come from coqtop */
@@ -209,7 +209,7 @@ export class State {
       return diff.diffProofView(oldGoals, newGoals);
     }
     return newGoals;
-  }  
+  }
 
   /** Adjust's this sentence by the change
    * @returns true if the delta intersects this sentence
@@ -274,9 +274,9 @@ export class State {
       // The problem is if a non-blank [ \r\n] is now contacting the end-period of this sentence; we need only check one more character
       const newEnd = parser.parseSentenceLength(newText + updatedDocumentText.substr(endOffset, 1));
       if(newEnd === -1 || newEnd !== newText.length)
-        return false; // invalidate: bad or changed syntax   
+        return false; // invalidate: bad or changed syntax
     }
-    
+
     if(parser.isPassiveDifference(this.commandText, newText)) {
       this.commandText = newText;
       this.textRange = newRange;
@@ -343,7 +343,7 @@ export class State {
     return textUtil.positionIsAfterOrEqual(this.textRange.start, position) ||
       textUtil.positionIsAfter(this.textRange.end, position);
   }
-  
+
   /** @returns `true` if this sentence contains `position`. */
   public contains(position: Position) : boolean {
     return textUtil.positionIsBeforeOrEqual(this.textRange.start, position) &&

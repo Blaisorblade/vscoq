@@ -61,12 +61,12 @@ export interface SEnd extends SentenceBase {
 export interface ModuleWithModule {
   type: "module",
   qualid: QualifiedIdentifier,
-  binding: QualifiedIdentifier,  
+  binding: QualifiedIdentifier,
 }
 export interface ModuleWithDefinition {
   type: "definition",
   qualid: QualifiedIdentifier,
-  expr: string,  
+  expr: string,
 }
 
 export interface ModuleType {
@@ -169,7 +169,7 @@ export interface InductiveBody {
   ident: Identifier,
   termType: string|null,
   constructors: Constructor[],
-  binders: Binder[],  
+  binders: Binder[],
 }
 
 export interface SAssumptions extends SentenceBase {

@@ -14,7 +14,7 @@ export function richppToMarkdown(text: string) : Promise<string> {
     const xml = xml2js.parseString(text, {
       charkey: '_char',
       trim: false,
-      explicitArray: false,     
+      explicitArray: false,
     }, (err:any,result:any) => {
       if(err || !result || result.hasOwnProperty('richpp'))
         resolve(text);

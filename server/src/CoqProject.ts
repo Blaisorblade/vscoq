@@ -29,7 +29,7 @@ export class CoqProject {
   // so they can be modified seperately
   private settingsCoqTopArgs: string[] = [];
   private coqProjectArgs: string[] = [];
-  
+
   constructor(workspaceRoot: string, private readonly connection: vscode.IConnection) {
     if(workspaceRoot)
       connection.console.log("Loaded project at " + workspaceRoot)
@@ -45,14 +45,14 @@ export class CoqProject {
   public getWorkspaceRoot() : string {
     return this.workspaceRoot;
   }
-  
+
   public lookup(uri: string) : CoqDocument {
     var doc = this.coqInstances.get(uri);
     if(!doc)
       throw 'unknown document: ' + uri;
     return doc;
   }
-  
+
   public createCoqTopInstance(scriptFile: string) : CoqTop {
     return new CoqTop8(this.settings.coqtop, scriptFile, this.getWorkspaceRoot(), this.console);
   }
@@ -70,7 +70,7 @@ export class CoqProject {
   public getPrettifySymbols() : PrettifySymbolsMode {
     return this.psm;
   }
-  
+
   private matchesCoq(selector: DocumentSelector) {
     if(typeof selector === 'string')
       return selector === 'coq';
@@ -85,7 +85,7 @@ export class CoqProject {
     this.settingsCoqTopArgs = newSettings.coqtop.args;
     this.currentSettings = newSettings;
 
-    
+
     if(newSettings.coq.loadCoqProject) {
       this.watchCoqProject();
       await this.loadCoqProject();
@@ -101,14 +101,14 @@ export class CoqProject {
       this.psm = new PrettifySymbolsMode([]);
     this.ready.signal();
   }
-  
+
   public async open(textDocument: TextDocumentItem, callbacks: DocumentCallbacks): Promise<CoqDocument> {
     await this.ready.event;
     const doc = new CoqDocument(this, textDocument, this.console, callbacks);
     this.coqInstances.set(doc.uri, doc);
     return doc;
   }
-  
+
   public close(uri: string) {
     var doc = this.coqInstances.get(uri);
     this.coqInstances.delete(uri);
@@ -116,7 +116,7 @@ export class CoqProject {
       doc.dispose();
     }
   }
-  
+
   private coqProjectFile() {
     if(this.workspaceRoot)
       return path.join(this.workspaceRoot, coqProjectFileName);
@@ -128,7 +128,7 @@ export class CoqProject {
     this.coqInstances.forEach((x) => x.dispose());
     this.coqInstances.clear();
   }
-  
+
   private async isCoqProjectOutOfDate() {
     try {
       const currentStat = await this.getFileStats(this.coqProjectFile());
@@ -137,7 +137,7 @@ export class CoqProject {
       return false;
     }
   }
-  
+
   private watchCoqProject() {
     if(this.coqProjectWatcher != null)
       this.coqProjectWatcher.close();
@@ -160,7 +160,7 @@ export class CoqProject {
       this.coqProjectWatcher.close();
     this.coqProjectWatcher = null;
   }
-  
+
   private async getFileStats(path: string) {
     return new Promise<fs.Stats>((resolve,reject) => {
       fs.stat(path, (err, stats) => {
@@ -168,7 +168,7 @@ export class CoqProject {
           reject(err);
         else
           resolve(stats);
-      });      
+      });
     })
   }
 
@@ -196,7 +196,7 @@ export class CoqProject {
     if(this.loadingCoqProjectInProcess)
       return;
     this.loadingCoqProjectInProcess = true;
-      
+
     try {
       const stats = await this.getFileStats(this.coqProjectFile());
       this.coqProjectModifiedDate = stats.mtime;
@@ -206,13 +206,13 @@ export class CoqProject {
     } catch(err) {
       this.coqProjectModifiedDate = null;
     } finally {
-      this.loadingCoqProjectInProcess = false;      
+      this.loadingCoqProjectInProcess = false;
     }
   }
-  
+
   public get settings() {
     return this.currentSettings;
   }
-  
+
 }
 

@@ -88,7 +88,7 @@ class AddCommandFailure implements proto.FailValue {
     public message: AnnotatedText,
     public range: vscode.Range,
     public sentence: vscode.Range)
-  {} 
+  {}
 }
 
 class CommandIsBusy {
@@ -98,19 +98,19 @@ enum STMStatus { Ready, Busy, Interrupting, Shutdown }
 
 /**
  * Manages the parts of the proof script that have been interpreted and processed by coqtop
- * 
+ *
  * Abstractions:
  * - addCommands(range: Range, commandText: string)
  *    ensures that the as much of commandText has been processed; cancels any previously overlapping sentences as needed
  *    returns the actual range that was accepted
  * - serialization: Coq commands may only run one at a time but are asynchronous. This STM ensures that each command is run one at a time, that edits are applied only when the prior commands are run
- * - interruption: queued may be interrupted; clears the queue of commands, interrupts coq, and applies the queued edits 
+ * - interruption: queued may be interrupted; clears the queue of commands, interrupts coq, and applies the queued edits
  */
 export class CoqStateMachine {
   private version = 0;
   // lazy init
   private root : State = null;
-  // map id to sentence; lazy init  
+  // map id to sentence; lazy init
   private sentences = new Map<StateId,State>();
   // The sentence that coqtop considers "focused"; lazy init
   private focusedSentence : State = null;
@@ -181,7 +181,7 @@ export class CoqStateMachine {
   private get console() { return this.project.console; }
 
   /**
-   * 
+   *
   */
   public async interrupt() : Promise<void> {
     if(!this.isBusy() || this.isShutdown())
@@ -264,7 +264,7 @@ export class CoqStateMachine {
   }
 
   /** Cancel a list of sentences that have (presumably) been invalidated.
-   * This will attempt to place the focus just before the topmost cancellation. 
+   * This will attempt to place the focus just before the topmost cancellation.
    * @param invalidatedSentences -- assumed to be sorted in descending order (bottom first)
    */
   private async cancelInvalidatedSentences(invalidatedSentences: State[]) : Promise<void> {
@@ -291,7 +291,7 @@ export class CoqStateMachine {
       for(let sent of invalidatedSentences) {
         await this.cancelSentence(sent);
       }
-      // The focus should be at the topmost cancelled sentences 
+      // The focus should be at the topmost cancelled sentences
       this.focusSentence(invalidatedSentences[invalidatedSentences.length-1].getParent());
     } catch(err) {
       this.handleInconsistentState(err);
@@ -620,25 +620,25 @@ private routeId = 1;
         }
         case proto.DisplayOption.AllBasicLowLevelContents:
           this.currentCoqOptions.printingAll = set(this.currentCoqOptions.printingAll, option.value);
-          break; 
+          break;
         case proto.DisplayOption.Coercions:
           this.currentCoqOptions.printingCoercions = set(this.currentCoqOptions.printingCoercions, option.value);
-          break; 
+          break;
         case proto.DisplayOption.ExistentialVariableInstances:
           this.currentCoqOptions.printingExistentialInstances = set(this.currentCoqOptions.printingExistentialInstances, option.value);
-          break; 
+          break;
         case proto.DisplayOption.ImplicitArguments:
           this.currentCoqOptions.printingImplicit = set(this.currentCoqOptions.printingImplicit, option.value);
-          break; 
+          break;
         case proto.DisplayOption.Notations:
           this.currentCoqOptions.printingNotations = set(this.currentCoqOptions.printingNotations, option.value);
-          break; 
+          break;
         case proto.DisplayOption.RawMatchingExpressions:
           this.currentCoqOptions.printingMatching = set(this.currentCoqOptions.printingMatching, option.value);
-          break; 
+          break;
         case proto.DisplayOption.UniverseLevels:
           this.currentCoqOptions.printingUniverses = set(this.currentCoqOptions.printingUniverses, option.value);
-          break; 
+          break;
       }
     }
     //await this.setCoqOptions(this.currentCoqOptions);
@@ -751,8 +751,8 @@ private routeId = 1;
 
   /** Continues to add next next command until the callback returns false.
    * Commands are always added from the current focus, which may advance seuqentially or jump around the Coq script document
-   * 
-   * @param params.end: optionally specify and end position to speed up command parsing (for params.commandSequence) 
+   *
+   * @param params.end: optionally specify and end position to speed up command parsing (for params.commandSequence)
    * */
   private async iterateAdvanceFocus(params: {iterateCondition: (command: {text:string,range:Range}, contiguousFocus: boolean)=>boolean, commandSequence: CommandIterator, verbose: boolean, end?: Position, synchronous?: boolean}) : Promise<void> {
     if(params.synchronous === undefined)
@@ -782,7 +782,7 @@ private routeId = 1;
 
       // If we have jumped to a new position, create a new iterator since the next command will not be adjacent
       if(result.unfocused)
-        commandIterator = params.commandSequence(this.getFocusedPosition(),params.end)[Symbol.iterator](); 
+        commandIterator = params.commandSequence(this.getFocusedPosition(),params.end)[Symbol.iterator]();
     } // for
   }
 
@@ -818,7 +818,7 @@ private routeId = 1;
       const result =
         { sentence: newSentence
         , unfocused: value.unfocusedStateId == undefined ? false : true
-        };        
+        };
       return result;
     } catch(error) {
       if(typeof error === 'string')
@@ -851,7 +851,7 @@ private routeId = 1;
     // Some errors tell us the new state to assume
     if(error.stateId !== undefined && error.stateId != 0)
       await this.gotoErrorFallbackState(error.stateId);
-    
+
     return this.currentError;
   }
 
@@ -881,7 +881,7 @@ private routeId = 1;
       return null;
   }
 
-  
+
   private convertGoals(goals: coqtop.GoalResult) : GoalResult {
     switch(goals.mode) {
       case 'no-proof':
@@ -976,7 +976,7 @@ private routeId = 1;
     this.setFocusedSentence(newLast);
   }
 
-  /** Apply buffered feedback to existing sentences, then clear the buffer */    
+  /** Apply buffered feedback to existing sentences, then clear the buffer */
   private applyBufferedFeedback() {
     // Process any feedback that we may have seen out of order
     this.bufferedFeedback
@@ -1193,15 +1193,15 @@ private routeId = 1;
         error(`States are out of order: id=${prev.getStateId()} and id=${st.getStateId()}`)
 
       if(range.start === range.end && st !== this.root)
-        error(`Empty state sentence: id=${st.getStateId()}`)        
+        error(`Empty state sentence: id=${st.getStateId()}`)
 
       if(st.isInvalidated())
-        error(`State is invalidated but not deleted: id=${st.getStateId()}`)        
+        error(`State is invalidated but not deleted: id=${st.getStateId()}`)
 
       if(!this.sentences.has(st.getStateId()))
-        error(`State is reachable but not mapped: id=${st.getStateId()}`)        
+        error(`State is reachable but not mapped: id=${st.getStateId()}`)
       else if(this.sentences.get(st.getStateId()) !== st)
-        error(`State does not map to itself: id=${st.getStateId()}`)        
+        error(`State does not map to itself: id=${st.getStateId()}`)
 
       stateIds.push(st.getStateId());
       prev = st;
@@ -1211,10 +1211,10 @@ private routeId = 1;
     const ids = new Set(stateIds);
     if(ids.size !== stateIds.length)
       error('Reachable states have duplicate IDs')
-    
+
     for(let id of this.sentences.keys()) {
       if(!ids.has(id))
-        error(`State is mapped but unreachable: id=${id}`)      
+        error(`State is mapped but unreachable: id=${id}`)
     }
 
     return success;
@@ -1224,7 +1224,7 @@ private routeId = 1;
   public logDebuggingSentences(ds?: DSentence[], indent: string = '\t') {
     if(!ds)
       ds = this.debuggingGetSentences()
-    this.console.log(ds.map((s,idx) => '  ' + (1+idx) + ':\t' + s).join('\n'));  
+    this.console.log(ds.map((s,idx) => '  ' + (1+idx) + ':\t' + s).join('\n'));
   }
 
 }

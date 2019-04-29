@@ -44,9 +44,9 @@ function computePrintingWidth() {
       connection.send(JSON.stringify(<ControllerEvent>{
         eventName: 'resize',
         params: <ResizeEvent>{columns: widthChars}
-      }));  
+      }));
   } catch(error) {
-    $('#stdout').text("!" + error);    
+    $('#stdout').text("!" + error);
   }
 }
 
@@ -56,7 +56,7 @@ function onWindowGetFocus(event: FocusEvent) {
       connection.send(JSON.stringify(<ControllerEvent>{
         eventName: 'focus',
         params: {}
-      }));  
+      }));
   } catch(error) {
   }
 }
@@ -76,7 +76,7 @@ const observer = new MutationObserver(function(mutations) {
     $(document.body).attr('class',getVSCodeTheme());
     // mutations.forEach(function(mutationRecord) {
     //   console.log(`{name: ${mutationRecord.attributeName}, old: ${mutationRecord.oldValue}, new: ${$(mutationRecord.target).attr('class')} }`);
-    // });    
+    // });
 });
 
 function setPrettifySymbolsMode(enabled: boolean) {
@@ -100,13 +100,13 @@ function load() {
         .removeClass("vscode-light")
         .addClass(getVSCodeTheme());
     } catch(error) {
-      $('#stdout').text(error.toString());    
+      $('#stdout').text(error.toString());
       $('#error').text(error.toString());
       return;
     }
   }
 
-  const address = `ws://${getQueryStringValue('host')}:${getQueryStringValue('port')}`; 
+  const address = `ws://${getQueryStringValue('host')}:${getQueryStringValue('port')}`;
   connection = new WebSocket(address);
   connection.onopen = function (event) {
     $('#stdout').text("connected");
@@ -165,6 +165,6 @@ function handleMessage(message: ProofViewProtocol) : void {
     case 'goal-update':
       return stateModel.updateState(message.goal);
     case 'settings-update':
-      updateSettings(message);  
-  }  
+      updateSettings(message);
+  }
 }

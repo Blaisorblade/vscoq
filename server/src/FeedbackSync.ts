@@ -13,7 +13,7 @@ export class FeedbackSync {
   private highlights: (() => Highlights)|null = null;
   private feedbackTimeout: NodeJS.Timer|null = null;
   private busy = false;
-  
+
   public constructor(
     private callbacks: DocumentFeedbackCallbacks,
     private delayMS: number = 500
@@ -44,7 +44,7 @@ export class FeedbackSync {
 
   public cancelSync() {
     if(this.feedbackTimeout !== null)
-      clearTimeout(this.feedbackTimeout);  
+      clearTimeout(this.feedbackTimeout);
   }
 
   public syncNow() {
@@ -75,5 +75,5 @@ export class FeedbackSync {
     else
       this.sendFeedbackLazily();
   }
-  
+
 }

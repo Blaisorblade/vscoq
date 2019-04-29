@@ -48,7 +48,7 @@ describe("Scopes", function() {
   beforeEach(function () {
     currentPos = vscode.Position.create(0,0);
   })
-  
+
   function nextPos(p?: vscode.Position) {
     if(!p)
       p = currentPos;
@@ -149,7 +149,7 @@ describe("Scopes", function() {
       assert.equal(s.scope.lookup(['M','foo'],ScopeFlags.All),null);
       assert.equal(s.scope.isBegin(), false);
       assert.equal(s.scope.isEnd(), false);
-      assert.deepStrictEqual(s.scope.getPrefixes(), []);      
+      assert.deepStrictEqual(s.scope.getPrefixes(), []);
     })
 
     it("isBegin", function() {
@@ -190,9 +190,9 @@ describe("Scopes", function() {
       s.scope = new ScopeDeclaration(s,['M'], null) as any;
       const sc = s.scope as any as IScopeDeclaration;
       s.scope.addExportSymbol(symb.foo);
-      assert.equal(sc.lookupHere(['bar'],ScopeFlags.All), null);      
-      assert.equal(sc.lookupHere(['foo'],ScopeFlags.Local), null);      
-      assert.equal(sc.lookupHere(['foo'],ScopeFlags.Private), null);      
+      assert.equal(sc.lookupHere(['bar'],ScopeFlags.All), null);
+      assert.equal(sc.lookupHere(['foo'],ScopeFlags.Local), null);
+      assert.equal(sc.lookupHere(['foo'],ScopeFlags.Private), null);
       assertSymbolLookup([sc.lookupHere(['foo'],ScopeFlags.All)], [symb.foo], []);
       assertSymbolLookup([sc.lookupHere(['foo'],ScopeFlags.Export)], [symb.foo], []);
     })
@@ -200,9 +200,9 @@ describe("Scopes", function() {
     it("resolveSymbol", function() {
       s.scope = new ScopeDeclaration(s,['M'], null) as any;
       const sc = s.scope as any as IScopeDeclaration;
-      assert.equal(sc.resolveSymbol(null), null);      
+      assert.equal(sc.resolveSymbol(null), null);
       s.scope.addExportSymbol(symb.foo);
-      assert.equal(sc.resolveSymbol(null), null);      
+      assert.equal(sc.resolveSymbol(null), null);
       const si1 : SymbolInformation = {
         assumedPrefix: [],
         id: ['foo'],
@@ -323,7 +323,7 @@ describe("Scopes", function() {
     it.skip("getPrefix", function() {
       function testGetPrefix(tests: [number,QualId][]) {
         tests.forEach(([idx,expected]) => assert.deepStrictEqual(s[idx].scope.getPrefixes(), expected, `s[${idx}].prefix === ${expected.toString()}`));
-      }      
+      }
       testGetPrefix([
         [ 0, [] ],
         [ 1, [] ],

@@ -86,11 +86,11 @@ export interface CustomFeedback {
   type: string,
   location: Location,
   data: any,
-} 
+}
 
 export interface LtacProfFeedback extends LtacProfResults {
   feedbackKind: "ltacprof",
-} 
+}
 
 export interface GlobReference {
   feedbackKind: "glob-ref",
@@ -134,7 +134,7 @@ export interface FeedbackBase {
     objectId: ObjectId,
     route: number,
   };
-  
+
 export interface FileLoaded {
   feedbackKind: "file-loaded",
   module: string;
@@ -207,7 +207,7 @@ export interface UnfocusedGoalStack {
   // subgoals that appear before the focus
   before: Subgoal[];
   // reference to the more-focused background goals
-  next?: UnfocusedGoalStack 
+  next?: UnfocusedGoalStack
   // subgoals that appear after the focus
   after: Subgoal[];
 }
@@ -225,7 +225,7 @@ export type StateFeedback =
   (LtacProfFeedback&FeedbackBase) |
   (MessageFeedback&FeedbackBase) | (FileLoaded&FeedbackBase) | (FileDependency&FeedbackBase) |
   (GlobReference&FeedbackBase) | (GlobDefinition&FeedbackBase) |
-  (UnknownFeedback&FeedbackBase);  
+  (UnknownFeedback&FeedbackBase);
 
 export type PairCoqValue = {[0]: CoqValue, [1]: CoqValue} & void[];
 export interface UnionCoqValueL extends UnionL<CoqValue> {}
@@ -233,9 +233,9 @@ export interface UnionCoqValueR extends UnionR<CoqValue> {}
 export type UnionCoqValue = UnionCoqValueL | UnionCoqValueR;
 export interface CoqValueList extends Array<CoqValue> {}
 export type CoqValue =
-  string | boolean | 
+  string | boolean |
   PairCoqValue | UnionCoqValue | CoqValueList |
-  StateId | EditId | 
+  StateId | EditId |
   StateFeedback | OptionState |
   Subgoal | Goals |
   AnnotatedText |
@@ -269,7 +269,7 @@ export interface ValueReturn {
   result: Add_rty | Goal_rty | EditAt_rty | Query_rty | Evars_rty | Hints_rty | Status_rty | Search_rty |
     GetOptions_rty | SetOptions_rty | MkCases_rty | Quit_rty | About_rty | Init_rty |
     Interp_rty | StopWorker_rty | PrintAst_rty | Annotate_rty,
-} 
+}
 
 
 export interface AddReturn {

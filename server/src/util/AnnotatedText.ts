@@ -104,7 +104,7 @@ export function textSplit(text: AnnotatedText, separator: string|RegExp, limit?:
       if(rest instanceof Array)
         return {splits: splits.slice(0,limit), rest: [...splits.slice(limit), ...rest, ...text.slice(idx)]};
       else
-        return {splits: splits.slice(0,limit), rest: [...splits.slice(limit), rest, ...text.slice(idx)]};      
+        return {splits: splits.slice(0,limit), rest: [...splits.slice(limit), rest, ...text.slice(idx)]};
     }
   } else if(isScopedText(text)) {
     const {splits: splits, rest: rest} = textSplit(text.text, separator, limit);
@@ -178,15 +178,15 @@ function mapAnnotationInternal(text: AnnotatedText, map: (text: string, annotati
     const result = map(text,{},currentOffset,currentDisplayOffset);
     return {text: result, endOffset: currentOffset + textLength(result), endDisplayOffset: currentDisplayOffset + textDisplayLength(result)};
   } else if(text instanceof Array) {
-    const results : (string|TextAnnotation|ScopedText)[] = []; 
+    const results : (string|TextAnnotation|ScopedText)[] = [];
     for(let txt of text) {
       const newText = mapAnnotationInternal(txt,map,currentOffset,currentDisplayOffset);
       currentOffset = newText.endOffset;
       currentDisplayOffset = newText.endDisplayOffset;
       if(newText.text instanceof Array)
-        results.push(...newText.text); 
+        results.push(...newText.text);
       else
-        results.push(newText.text); 
+        results.push(newText.text);
     }
     return {text: results, endOffset: currentOffset, endDisplayOffset: currentDisplayOffset};
   } else if(isScopedText(text)) {
@@ -286,14 +286,14 @@ export function normalizeText(text: AnnotatedText) : AnnotatedText {
           continue;
         let first = norm.shift();
         const merge = tryCombineText(results[results.length-1], first);
-        if(merge)       
+        if(merge)
           results[results.length-1] = merge;
         else
           results.push(merge);
         results.push(...norm);
       } else {
         const merge = tryCombineText(results[results.length-1], norm);
-        if(merge)       
+        if(merge)
           results[results.length-1] = merge;
         else
           results.push(norm);
@@ -345,14 +345,14 @@ function toDiff(d: diff.IDiffResult, mode: "old"|"new") : "added"|"removed"|unde
 }
 
 /**
- * @param mode - whether `text` is the old or new string 
+ * @param mode - whether `text` is the old or new string
  */
 export function annotateDiffAdded(text: AnnotatedText, differences: diff.IDiffResult[], options: {diffSubstitutions: boolean, mode: "old"|"new"}) : AnnotatedText {
   let idx = 0; // the current diff
   let offset = 0; // position of current diff w.r.t. textToString() (not textToDisplayString())
   let diffOffset = 0; // the offset into the current diff; used when a diff spans multiple text parts
 
-  // we're only interested in unchanged parts and either added(mode="new") or removed(mode="old") parts 
+  // we're only interested in unchanged parts and either added(mode="new") or removed(mode="old") parts
   if(options.mode === "new")
     differences = differences.filter((d) => !d.removed);
   else
@@ -414,7 +414,7 @@ export function annotateDiffAdded(text: AnnotatedText, differences: diff.IDiffRe
       diffOffset+= text.length + start - offset - diffOffset;
     }
 
-    // The diffs *should* be 
+    // The diffs *should* be
     if(idx > differences.length && offset < start+text.length)
       throw "invalid diff: does not line up with text length";
 
@@ -454,4 +454,4 @@ export function append(...texts: AnnotatedText[]) : AnnotatedText {
     return results[0];
   else
     return results;
-} 
+}

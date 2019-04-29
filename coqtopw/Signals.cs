@@ -2,15 +2,15 @@
 
 class win32 {
   //import in the declaration for GenerateConsoleCtrlEvent
-  [DllImport("kernel32.dll", SetLastError=true)]  
+  [DllImport("kernel32.dll", SetLastError=true)]
   public static extern bool GenerateConsoleCtrlEvent(ConsoleCtrlEvent sigevent, int dwProcessGroupId);
 
   //[DllImport("kernel32.dll", SetLastError = true)]
   //internal static extern bool AttachConsole(uint dwProcessId);
   //[DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
   //internal static extern bool FreeConsole();
-  
-  
+
+
   //[DllImport("kernel32.dll")]
   //static extern bool SetConsoleCtrlHandler(ConsoleCtrlDelegate HandlerRoutine, bool Add);
 

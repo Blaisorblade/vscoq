@@ -24,6 +24,6 @@
 				"${workspaceRoot}/../client/server/**/*.js"
 			],
 			"preLaunchTask": "test-debug"
-		}  
+		}
 	]
 }

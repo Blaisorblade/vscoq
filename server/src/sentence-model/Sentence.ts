@@ -14,7 +14,7 @@ every sentence has a scope
 * a basic scope points to a parent scope, which could be a section def, module def, or top of the document
 * a basic scope points to a previous and next siblings (often corresponds to prev/next sentence)
 * some sentences may have private scopes: available only within the sentence
-* some sentences may 
+* some sentences may
 */
 
 export class Sentence {
@@ -28,7 +28,7 @@ export class Sentence {
     private documentRange: Range,
     private documentOffset: number,
     public prev: Sentence|null,
-    parseSent: parser.Sentence,    
+    parseSent: parser.Sentence,
   ) {
     this.scopeDeclaration = parseAstForScopeDeclarations<Sentence>(parseSent, this, documentRange.start);
     this.symbols = ast.parseAstForSymbols(parseSent, documentRange.start);
@@ -86,7 +86,7 @@ export class Sentence {
   }
 
   /**
-   * @param line -- the line number (absolute position in the document) to retrieve 
+   * @param line -- the line number (absolute position in the document) to retrieve
    * @return the corresponding line of text that exists within this sentence.
    */
   public getLine(line: number|Position) : string|null {
@@ -217,11 +217,11 @@ export class Sentence {
       if(newEnd === -1 || newEnd !== newText.length) {
         this.invalidate();
         return false; // invalidate: bad or changed syntax
-      }   
+      }
     }
 
     this.documentRange = newRange;
-    
+
     if(parser.isPassiveDifference(this.text, newText)) {
       this.text = newText;
       return true;

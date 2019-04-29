@@ -7,7 +7,7 @@ import * as textUtil from '../util/text-util';
 // //   Definition,
 // //   Class,
 // //   Constructor,
-// //   Module, 
+// //   Module,
 // // }
 
 // // export class SymbolDefinition {
@@ -79,7 +79,7 @@ import * as textUtil from '../util/text-util';
 //   public lookupDefinition(id: QualId, currentScope: QualId) : SymbolDefinition|null {
 //     return undefined;
 //   }
-  
+
 // }
 
 // class SectionScope extends Scope {
@@ -108,7 +108,7 @@ import * as textUtil from '../util/text-util';
 //   }
 
 //   public lookupDefinition(id: QualId, currentScope: QualId) : SymbolDefinition|null {
-//     const fullId = [...currentScope, undefined];    
+//     const fullId = [...currentScope, undefined];
 //     for(let def of this.definitions) {
 //       fullId[fullId.length-1] = def.identifier;
 //       if(qualIdMatch(fullId, id)) {
@@ -152,11 +152,11 @@ import * as textUtil from '../util/text-util';
 export type QualId = string[];
 // class QualId extends Array<string> {
 //   public contains(id: QualId|string[]) : boolean {
-//     return containsQualId(this,id); 
+//     return containsQualId(this,id);
 //   }
 
 //   public resolve(id: QualId|string[]) : QualId | null {
-//     return resolveQualId(this,id); 
+//     return resolveQualId(this,id);
 //   }
 
 //   public match(x: QualId|string[]) : QualId|null {
@@ -176,7 +176,7 @@ export type QualId = string[];
 //   return true;
 // }
 
-export function resolveQualId(id1: QualId, id2: QualId) : QualId | null { 
+export function resolveQualId(id1: QualId, id2: QualId) : QualId | null {
   if(id2.length > id1.length)
     return null;
   let idx = 1;
@@ -223,10 +223,10 @@ export function matchQualId(x: QualId, y: QualId) : {which: 0|1, prefix: QualId,
 //     if(result)
 //       return {assumedPrefix: id.slice(), id: result}
 //     else
-//       return null;    
+//       return null;
 
 //   }
-    
+
   // x is now the shortest
 
 
@@ -313,7 +313,7 @@ export class ScopeDeclaration<S extends {prev: S, next: S, getScope() : ScopeDec
   }
 
   public static createDefinition<S extends {prev: S, next: S, getScope() : ScopeDeclaration<S>|null}>(source: S, name: string, range: vscode.Range) {
-    const result = new ScopeDeclaration(source, [], null);    
+    const result = new ScopeDeclaration(source, [], null);
     result.exportSymbols.push({identifier: name, range: range, kind: SymbolKind.Module});
     return result;
   }
@@ -504,9 +504,9 @@ namespace parseAstSymbols {
       identifier: ident.text,
       kind: kind,
       range: textUtil.rangeTranslateRelative(pos,parser.locationRangeToRange(ident.loc))
-    };  
+    };
   }
-  
+
   export function definition<S extends {prev: S, next: S, getScope() : ScopeDeclaration<S>|null}>(ast: ast.SDefinition, sent: S, pos: vscode.Position) : ScopeDeclaration<S> {
     const result = new ScopeDeclaration(sent, [], null);
     result.addExportSymbol(identToSymbol(ast.ident, SymbolKind.Definition, pos));
@@ -517,7 +517,7 @@ namespace parseAstSymbols {
     ast.bodies.forEach(body => {
       result.addExportSymbol(identToSymbol(body.ident, SymbolKind.Inductive, pos));
       body.constructors.forEach(c => {
-        result.addExportSymbol(identToSymbol(c.ident, SymbolKind.Constructor, pos));        
+        result.addExportSymbol(identToSymbol(c.ident, SymbolKind.Constructor, pos));
       });
     });
     return result;
@@ -576,7 +576,7 @@ export function parseAstForScopeDeclarations<S extends {prev: S, next: S, getSco
     case "module-bind": return parseAstSymbols.moduleBind(ast,sent,pos);
     case "module-type": return parseAstSymbols.moduleType(ast,sent,pos);
     case "module-type-bind": return parseAstSymbols.moduleTypeBind(ast,sent,pos);
-    default:  
+    default:
       return new ScopeDeclaration(sent,[], null);
     }
   } catch(err) {

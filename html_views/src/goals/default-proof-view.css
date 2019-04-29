@@ -10,7 +10,7 @@ html, body {
   right:0px;
   bottom:0px;
   }
-body {      
+body {
   background-color: var(--background-color, black);
   color: var(--color, white);
   font-family: var(--font-family,"'Segoe WPC','Segoe UI',SFUIText-Light,HelveticaNeue-Light,sans-serif,'Droid Sans Fallback'");
@@ -83,19 +83,19 @@ body {
 }
 .hypotheses .new {
   background-color: rgba(0,255,0,0.09) !important;
-} 
+}
 .hypotheses .changed {
   background-color: rgba(0,0,255,0.15) !important;
-} 
+}
 .vscode-light .hypotheses li:nth-child(odd) {
   background-color: rgba(0,0,0,0.02)
 }
 .vscode-light .hypotheses .new {
   background-color: rgba(00,170,00,0.25) !important;
-} 
+}
 .vscode-light .hypotheses .changed {
   background-color: rgba(0,0,255,0.05) !important;
-} 
+}
 .hypothesis {
   white-space: nowrap;
 }
@@ -120,7 +120,7 @@ body {
 .goal .goalId {
   color: lightblue;
   /*display: block;*/
-  margin-right: 1ex; 
+  margin-right: 1ex;
 }
 .vscode-light .goal .goalId {
   color: darkblue;
@@ -140,10 +140,10 @@ body {
 }
 .hypotheses .new .ident {
   font-weight: bold;
-} 
+}
 .hypotheses .changed .ident {
   font-style: italic;
-} 
+}
 .charsAdded {
   background-color: rgba(0,250,0,0.1);
   font-style: italic;
@@ -151,7 +151,7 @@ body {
 span[class~=charsAdded][class~=substitution]::before {
   background-color: rgba(0,250,0,0.1);
   font-style: italic;
-} 
+}
 .charsRemoved {
   background-color: rgba(250,0,0,0.6);
   text-decoration: line-through;
@@ -159,14 +159,14 @@ span[class~=charsAdded][class~=substitution]::before {
 span[class~=charsRemoved][class~=substitution]::before {
   background-color: rgba(250,0,0,0.6);
   text-decoration: line-through;
-} 
+}
 
 .vscode-light .charsAdded {
   background-color: rgba(0,250,0,0.2);
 }
 .vscode-light span[class~=charsAdded][class~=substitution]::before {
   background-color: rgba(0,250,0,0.2);
-} 
+}
 .vscode-light .charsRemoved {
   background-color: rgba(250,0,0,0.2);
 }

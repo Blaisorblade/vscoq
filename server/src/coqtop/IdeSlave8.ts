@@ -59,7 +59,7 @@ export class IdeSlave extends coqtop.IdeSlave {
     this.controlChannelR = controlR;
     this.controlChannelW = controlW;
     this.state = IdeSlaveState.Connected;
-  
+
     const deserializer = createDeserializer(version);
     this.parser = new coqXml.XmlStream(this.mainChannelR, deserializer, {
       onFeedback: (feedback: coqProto.StateFeedback) => this.doOnFeedback(feedback),
@@ -121,7 +121,7 @@ export class IdeSlave extends coqtop.IdeSlave {
     //   this.controlChannelR.end();
     if (this.controlChannelW)
       this.controlChannelW.end();
-    
+
     this.mainChannelR = undefined;
     this.mainChannelW = undefined;
     this.controlChannelR = undefined;
@@ -131,7 +131,7 @@ export class IdeSlave extends coqtop.IdeSlave {
   public isConnected() : boolean {
     return this.state === IdeSlaveState.Connected;
   }
-  
+
   protected onCoqTopError(error: string|{message: string}, channelName: string) : void {
     try {
       const message = typeof error === "string" ? error : error.message;
@@ -142,11 +142,11 @@ export class IdeSlave extends coqtop.IdeSlave {
       // if(this.callbacks.onClosed)
       //   this.callbacks.onClosed(true, message);
     } finally {
-      this.dispose();      
+      this.dispose();
       this.state = IdeSlaveState.Error;
     }
   }
-  
+
   private onMainChannelR(data: string) {
   }
 
@@ -159,7 +159,7 @@ export class IdeSlave extends coqtop.IdeSlave {
   private onControlChannelW(data: string) {
     this.console.log('control-channelW: ' + data);
   }
-  
+
 
   private doOnFeedback(feedback: coqProto.StateFeedback) {
     if(this.callbacks.onFeedback)
@@ -172,7 +172,7 @@ export class IdeSlave extends coqtop.IdeSlave {
   }
 
   private doOnOther(tag: string, x: any) {
-      // this.console.log("reponse: " + tag + ": " + util.inspect(x));    
+      // this.console.log("reponse: " + tag + ": " + util.inspect(x));
   }
   private doOnSerializationError(x: any) {}
 
@@ -188,14 +188,14 @@ export class IdeSlave extends coqtop.IdeSlave {
       throw error;
     }
   }
-  
+
   /**
    * Note: this needs to be called before this.mainChannelW.write to ensure that the handler for 'response: value'
    * is installed on time
    */
   private coqGetResultOnce(logIdent?: string) : Promise<coqProto.ValueReturn> {
     if(this.coqResultValueListener)
-       new InternalError('Multiple handlers are being registered for the same response value from Coqtop.') 
+       new InternalError('Multiple handlers are being registered for the same response value from Coqtop.')
     return new Promise<coqProto.ValueReturn>((resolve,reject) => {
       this.coqResultValueListener = {
         onValue: (value:coqProto.ValueReturn|coqProto.FailValue) => {
@@ -232,7 +232,7 @@ export class IdeSlave extends coqtop.IdeSlave {
       });
     });
   }
-  
+
   /** @returns true if an interrupt message was sent via the xml protocol */
   public async coqInterrupt() : Promise<boolean> {
     if(!this.isConnected())
@@ -242,7 +242,7 @@ export class IdeSlave extends coqtop.IdeSlave {
         this.console.log('interrupted');
       });
       this.console.log('interrupt');
-      
+
       this.console.log('--------------------------------');
       this.console.log('Call Interrupt()');
       this.writeMain('<call val="Interrupt"><unit/></call>');
@@ -277,7 +277,7 @@ export class IdeSlave extends coqtop.IdeSlave {
   public async coqQuit() : Promise<void> {
     if(!this.isConnected())
       return;
-    
+
     try {
       const coqResult = this.coqGetResultOnce('Quit');
       this.console.log('--------------------------------');
@@ -303,11 +303,11 @@ export class IdeSlave extends coqtop.IdeSlave {
     let count = 0;
     while(g) {
       count += g.before.length + g.after.length;
-      g = g.next; 
+      g = g.next;
     }
     return count;
   }
-  
+
   public async coqGoal() : Promise<GoalResult> {
     await this.checkState();
 
@@ -315,7 +315,7 @@ export class IdeSlave extends coqtop.IdeSlave {
     this.console.log('--------------------------------');
     this.console.log('Call Goal()');
     this.writeMain('<call val="Goal"><unit/></call>');
-    
+
     const value = coqProto.GetValue('Goal', await coqResult);
     if(value !== null) {
       const result : ProofView = {
@@ -360,7 +360,7 @@ export class IdeSlave extends coqtop.IdeSlave {
 
     return coqProto.GetValue('Status', await coqResult);
   }
-  
+
   public async coqAddCommand(command: string, editId: number, stateId: number, verbose?: boolean) : Promise<AddResult> {
     await this.checkState();
 
@@ -389,7 +389,7 @@ export class IdeSlave extends coqtop.IdeSlave {
     const coqResult = this.coqGetResultOnce('EditAt');
     this.console.log('--------------------------------');
     this.console.log(`Call EditAt(stateId: ${stateId})`);
-    this.writeMain(`<call val="Edit_at"><state_id val="${stateId}"/></call>`);    
+    this.writeMain(`<call val="Edit_at"><state_id val="${stateId}"/></call>`);
 
     const value = coqProto.GetValue('Edit_at', await coqResult);
     let result : EditAtResult;
@@ -411,7 +411,7 @@ export class IdeSlave extends coqtop.IdeSlave {
   public async coqLtacProfilingResults(stateId?: number, routeId?: number) : Promise<void> {
     await this.checkState();
     stateId = stateId || 0;
-    const routeAttr = typeof routeId === 'number' ? ` route="${routeId}"` : ""; 
+    const routeAttr = typeof routeId === 'number' ? ` route="${routeId}"` : "";
 
     const coqResult = this.coqGetResultOnce('Query');
     this.console.log('--------------------------------');
@@ -446,19 +446,19 @@ export class IdeSlave extends coqtop.IdeSlave {
     const result = coqProto.GetValue('SetOptions',await coqResult);
     this.console.log(`ResizeWindow: ${columns} --> ()`);
   }
-  
+
   public async coqQuery(query: string, stateId?: number, routeId?: number) : Promise<AnnotatedText> {
     this.checkState();
     if(stateId === undefined)
       stateId = 0;
-    const routeAttr = typeof routeId === 'number' ? ` route="${routeId}"` : ""; 
+    const routeAttr = typeof routeId === 'number' ? ` route="${routeId}"` : "";
 
     const coqResult = this.coqGetResultOnce('Query');
     const coqMessageResult = this.coqGetMessageOnce();
     this.console.log('--------------------------------');
     this.console.log(`Call Query(stateId: ${stateId}, ${routeId!==undefined? "routeId: "+routeId+", ":""}query: ${query})`);
-    this.writeMain(`<call val="Query"${routeAttr}><pair><string>${coqXml.escapeXml(query)}</string><state_id val="${stateId}"/></pair></call>`);    
-    // this.writeMain(`<call val="Query"><pair><string>${entities.encodeXML(query)}</string><state_id val="${stateId}"/></pair></call>`);    
+    this.writeMain(`<call val="Query"${routeAttr}><pair><string>${coqXml.escapeXml(query)}</string><state_id val="${stateId}"/></pair></call>`);
+    // this.writeMain(`<call val="Query"><pair><string>${entities.encodeXML(query)}</string><state_id val="${stateId}"/></pair></call>`);
 
     const values = await Promise.all([coqMessageResult, coqResult.then(() => null)]);
     this.console.log(`Query: ${stateId} --> ...`);
@@ -468,14 +468,14 @@ export class IdeSlave extends coqtop.IdeSlave {
 
 
 //     this.checkState();
-// 
+//
 //     const coqResult = this.coqGetResultOnce('Locate');
 //     // const verboseStr = verbose===true ? "true" : "false";
 //     const verboseStr = verbose === false ? "false" : "true";
 //     this.console.log('--------------------------------');
 //     this.console.log(`Call Add("${command.trim().substr(0, 20) + (command.trim().length > 20 ? "..." : "")}", editId: ${editId}, stateId: ${stateId}, verbose: ${verboseStr})`);
 //     this.writeMain(`<call val="Add"><pair><pair><string>${command}</string><int>${editId}</int></pair><pair><state_id val="${stateId}"/><bool val="${verboseStr}"/></pair></pair></call>`);
-// 
+//
 //     const value = await coqResult;
 //     let result = <AddResult>{
 //       stateId: value.stateId,
@@ -495,7 +495,7 @@ export class IdeSlave extends coqtop.IdeSlave {
     // const coqMessageResult = this.coqGetMessageOnce();
     this.console.log('--------------------------------');
     this.console.log(`Call GetOptions()`);
-    this.writeMain(`<call val="GetOptions"><unit/></call>`);    
+    this.writeMain(`<call val="GetOptions"><unit/></call>`);
 
     const values = coqProto.GetValue('GetOptions', await coqResult);
     this.console.log(`GetOptions: () --> ...`);
@@ -517,7 +517,7 @@ export class IdeSlave extends coqtop.IdeSlave {
     this.console.log('--------------------------------');
     this.console.log(`Call SetOptions(...)`);
     // this.console.log(`Call SetOptions(${xmlTypes.encode(xmlOptions)})`);
-    this.writeMain(`<call val="SetOptions">${xmlTypes.encode(xmlOptions)}</call>`);    
+    this.writeMain(`<call val="SetOptions">${xmlTypes.encode(xmlOptions)}</call>`);
 
     const values = coqProto.GetValue('SetOptions', await coqResult);
     this.console.log(`SetOptions: (...) --> ...`);
@@ -528,8 +528,8 @@ export class IdeSlave extends coqtop.IdeSlave {
 //     const coqResult = this.coqGetResultOnce('EditAt');
 //     this.console.log('--------------------------------');
 //     this.console.log(`Call EditAt(stateId: ${stateId})`);
-//     this.writeMain(`<call val="Edit_at"><state_id val="${stateId}"/></call>`);    
-// 
+//     this.writeMain(`<call val="Edit_at"><state_id val="${stateId}"/></call>`);
+//
 //     const value = await coqResult;
 //     let result : EditAtResult;
 //     if(value.value.inr) {
