@@ -181,6 +181,7 @@ export class CoqDocument implements vscode.Disposable {
           this.project.infoOut.appendLine(psm.prettyTextToString(params.message));
           return;
         case 'info':
+          this.project.infoOut.show(true);
           this.project.infoOut.appendLine(psm.prettyTextToString(params.message));
           return;
         case 'notice':
