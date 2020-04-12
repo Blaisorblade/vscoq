@@ -13,7 +13,7 @@ type Snippet = string | {label: string, insertText: string, documentation?: stri
 
 
 function snippetSentence(item: Snippet) : vscode.CompletionItem {
-  if(typeof item === 'string') { 
+  if(typeof item === 'string') {
     const result = new vscode.CompletionItem(item,vscode.CompletionItemKind.Snippet);
     result.insertText = item + ".";
     return result;
@@ -99,6 +99,7 @@ const optionsSnippetsRaw = [
   "Printing Width",
   "Printing Wildcard",
   "Program Mode",
+  "Program Cases",
   "Proof Using Clear Unused",
   "Record Elimination Schemes",
   "Regular Subst Tactic",
@@ -184,41 +185,34 @@ const printSnippets = [
   {label: "Transparent Dependencies", insertText: "Transparent Dependencies {{qualid}}."},
   "Universes",
   {label: "Universes (filename)", insertText: "Universes {{filename}}."},
-  "Visibility", 
+  "Visibility",
 ].map(snippetSentence);
 
 const showSnippets = [
-  {label: "(num)", insertText: " {{num}}.", documentation: "Displays only the num-th subgoal"}, 
-  "Script", 
-  "Proof", 
-  "Conjecturest", 
-  "Intro", 
-  "Intros", 
-  "Existentials", 
-  "Universes", 
+  {label: "(num)", insertText: " {{num}}.", documentation: "Displays only the num-th subgoal"},
+  "Script",
+  "Proof",
+  "Conjectures",
+  "Intro",
+  "Intros",
+  "Existentials",
+  "Universes",
 ].map(snippetSentence);
 
 const hintSnippets = [
-  {label: "(definition)", insertText: " {{definition}}."}, 
-  {label: "Constructors", insertText: "Constructors {{idents …}}."}, 
-  {label: 'Cut', insertText: 'Cut "{{regexp}}".'}, 
-  {label: 'Extern', insertText: 'Extern {{num}} {{optional-pattern}} => {{tactic}}.'}, 
-  {label: 'Immediate', insertText: 'Immediate {{term}}.'}, 
-  {label: 'Mode', insertText: 'Mode {{(+|-)*}} {{qualid}}.'}, 
-  {label: 'Opaque', insertText: 'Opaque {{qualid}}.'}, 
-  {label: 'Resolve', insertText: 'Resolve {{term}}.'}, 
-  {label: 'Rewrite', insertText: 'Rewrite {{terms …}} : {{idents …}}.'}, 
-  {label: 'Rewrite ->', insertText: 'Rewrite -> {{terms …}} : {{idents …}}.'}, 
-  {label: 'Rewrite <-', insertText: 'Rewrite <- {{terms …}} : {{idents …}}.'}, 
-  {label: 'Transparent', insertText: 'Transparent {{qualid}}.'}, 
-  {label: 'Unfold', insertText: 'Unfold {{qualid}}.'}, 
-  'Mode', 
-  'Proof', 
-  'Conjecturest', 
-  'Intro', 
-  'Intros', 
-  'Existentials', 
-  'Universes', 
+  {label: "(definition)", insertText: " {{definition}}."},
+  {label: "Constructors", insertText: "Constructors {{idents …}}."},
+  {label: 'Cut', insertText: 'Cut "{{regexp}}".'},
+  {label: 'Extern', insertText: 'Extern {{num}} {{optional-pattern}} => {{tactic}}.'},
+  {label: 'Immediate', insertText: 'Immediate {{term}}.'},
+  {label: 'Mode', insertText: 'Mode {{(+|-)*}} {{qualid}}.'},
+  {label: 'Opaque', insertText: 'Opaque {{qualid}}.'},
+  {label: 'Resolve', insertText: 'Resolve {{term}}.'},
+  {label: 'Rewrite', insertText: 'Rewrite {{terms …}} : {{idents …}}.'},
+  {label: 'Rewrite ->', insertText: 'Rewrite -> {{terms …}} : {{idents …}}.'},
+  {label: 'Rewrite <-', insertText: 'Rewrite <- {{terms …}} : {{idents …}}.'},
+  {label: 'Transparent', insertText: 'Transparent {{qualid}}.'},
+  {label: 'Unfold', insertText: 'Unfold {{qualid}}.'},
 ].map(snippetSentence);
 
 
