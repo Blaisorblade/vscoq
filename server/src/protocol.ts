@@ -41,6 +41,7 @@ export interface CoqTopSettings {
   args: string[];
   /** When should an instance of coqtop be started for a Coq script */
   startOn: "open-script" | "interaction",
+  useDune: boolean;
 }
 
 export interface AutoFormattingSettings {
