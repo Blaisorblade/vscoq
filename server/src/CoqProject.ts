@@ -86,7 +86,7 @@ export class CoqProject {
       this.coqProjectRoot = newSettings.coq.coqProjectRoot;
       this.console.log("Updated project root to " + this.getCoqProjectRoot());
     }
-    if(newSettings.coq.loadCoqProject ) {
+    if(newSettings.coq.loadCoqProject && !newSettings.coqtop.useDune) {
       this.watchCoqProject();
       await this.loadCoqProject();
     } else {
