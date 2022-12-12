@@ -217,13 +217,14 @@ export class CoqTop extends IdeSlave8 implements coqtop.CoqTop {
 
   private spawnCoqTop(mainAddr : string, controlAddr: string) {
     var topfile : string[] = [];
-    if (semver.satisfies(this.coqtopVersion, ">= 8.10")) {
+    if (semver.satisfies(this.coqtopVersion, ">= 8.10") && !this.settings.useDune) {
+      // Dune computes this internally, so we skip it.
       topfile = ['-topfile', this.fixedScriptFile];
     }
     if (semver.satisfies(this.coqtopVersion, ">= 8.9")) {
       var coqtopModule = this.coqidetopBin;
       // var coqtopModule = 'cmd';
-      var args = [
+      var coqArgs = [
         // '/D /C', this.coqPath + '/coqtop.exe',
         '-main-channel', mainAddr,
         '-control-channel', controlAddr,
@@ -232,7 +233,7 @@ export class CoqTop extends IdeSlave8 implements coqtop.CoqTop {
     } else {
       var coqtopModule = this.coqtopBin;
       // var coqtopModule = 'cmd';
-      var args = [
+      var coqArgs = [
         // '/D /C', this.coqPath + '/coqtop.exe',
         '-main-channel', mainAddr,
         '-control-channel', controlAddr,
@@ -240,8 +241,17 @@ export class CoqTop extends IdeSlave8 implements coqtop.CoqTop {
         '-async-proofs', 'on'
         ].concat(this.settings.args);
     }
-    this.console.log('exec: ' + coqtopModule + ' ' + args.join(' '));
-    return spawn(coqtopModule, args, {detached: false, cwd: this.projectRoot});
+    if (this.settings.useDune) {
+      var binary = this.settings.dunePath
+      var args = ["coq", "top", "--toplevel=" + coqtopModule,
+        this.fixedScriptFile, "--"].concat(coqArgs);
+    } else {
+      var binary = coqtopModule
+      var args = coqArgs
+    }
+
+    this.console.log('exec: ' + binary + ' ' + args.join(' '));
+    return spawn(binary, args, { detached: false, cwd: this.projectRoot });
   }
 
   public /* override */ async coqInterrupt() : Promise<boolean> {
