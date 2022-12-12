@@ -210,10 +210,15 @@ export class CoqTop extends IdeSlave8 implements coqtop.CoqTop {
     return path.join(this.settings.binPath.trim(), this.settings.coqidetopExe);
   }
 
+  private get fixedScriptFile() {
+    // XXX only works if the path looks like "file:/path/to/dest"
+    return this.scriptFile.replace("file:", "")
+  }
+
   private spawnCoqTop(mainAddr : string, controlAddr: string) {
     var topfile : string[] = [];
     if (semver.satisfies(this.coqtopVersion, ">= 8.10")) {
-      topfile = ['-topfile', this.scriptFile];
+      topfile = ['-topfile', this.fixedScriptFile];
     }
     if (semver.satisfies(this.coqtopVersion, ">= 8.9")) {
       var coqtopModule = this.coqidetopBin;
