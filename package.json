@@ -60,6 +60,11 @@
       "type": "object",
       "title": "Coq configuration",
       "properties": {
+        "coqtop.dunePath": {
+          "type": "string",
+          "default": "dune",
+          "markdownDescription": "Full path to dune binary (`dune` included)."
+        },
         "coqtop.binPath": {
           "type": "string",
           "default": "",
