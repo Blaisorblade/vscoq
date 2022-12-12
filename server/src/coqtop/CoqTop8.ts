@@ -1,5 +1,6 @@
 'use strict';
 
+import Uri from 'vscode-uri'
 import * as net from 'net';
 import * as path from 'path';
 import * as vscode from 'vscode-languageserver';
@@ -210,16 +211,20 @@ export class CoqTop extends IdeSlave8 implements coqtop.CoqTop {
     return path.join(this.settings.binPath.trim(), this.settings.coqidetopExe);
   }
 
-  private get fixedScriptFile() {
-    // XXX only works if the path looks like "file:/path/to/dest"
-    return this.scriptFile.replace("file:", "")
+  private get scriptPath() {
+    // TODO: rename scriptFile to scriptUri everywhere.
+    let uri = Uri.parse(this.scriptFile)
+    if (uri.scheme == "file")
+      return uri.fsPath;
+    else
+      throw new CoqtopSpawnError("", "File was not saved to local file system");
   }
 
   private spawnCoqTop(mainAddr : string, controlAddr: string) {
     var topfile : string[] = [];
     if (semver.satisfies(this.coqtopVersion, ">= 8.10") && !this.settings.useDune) {
       // Dune computes this internally, so we skip it.
-      topfile = ['-topfile', this.fixedScriptFile];
+      topfile = ['-topfile', this.scriptPath];
     }
     if (semver.satisfies(this.coqtopVersion, ">= 8.9")) {
       var coqtopModule = this.coqidetopBin;
@@ -244,7 +249,7 @@ export class CoqTop extends IdeSlave8 implements coqtop.CoqTop {
     if (this.settings.useDune) {
       var binary = this.settings.dunePath
       var args = ["coq", "top", "--toplevel=" + coqtopModule,
-        this.fixedScriptFile, "--"].concat(coqArgs);
+        this.scriptPath, "--"].concat(coqArgs);
     } else {
       var binary = coqtopModule
       var args = coqArgs
